@@ -1,0 +1,24 @@
+.react-datepicker__day,
+.react-datepicker__day-name {
+  font-family: "Founders Grotesk";
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  color: theme("colors.white");
+  background-color: theme("colors.eco-blue-primary") !important;
+  border-radius: theme("borderRadius.full") !important;
+}
+
+.react-datepicker__day:hover {
+  color: theme("colors.white");
+  background-color: theme("colors.eco-light-gray") !important;
+  border-radius: theme("borderRadius.full") !important;
+}
+
+.react-datepicker__day--disabled,
+.react-datepicker__day--disabled:hover {
+  background-color: inherit !important;
+  color: theme("colors.eco-medium-gray") !important;
+  cursor: not-allowed;
+}

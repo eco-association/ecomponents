@@ -1,0 +1,6 @@
+:root {
+  --toastify-color-info: theme("colors.eco-teal-accent") !important;
+  --toastify-color-success: theme("colors.eco-green-success") !important;
+  --toastify-color-warning: theme("colors.eco-yellow-warning") !important;
+  --toastify-color-error: theme("colors.eco-red-danger") !important;
+}
