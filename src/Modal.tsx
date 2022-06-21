@@ -1,13 +1,10 @@
 import React, { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
-
-import Button from "./Button";
 
 /** This is an opinionated version of a Modal that's really just used for confirmations
  *  e.g. Are you sure you want to do X? and provides the styling and layout for that
  */
-type Modal = {
+type ModalProps = {
   /** Controls if the modal is open or closed */
   open: boolean;
   /** Changes the open/closed state of the modal */
@@ -18,7 +15,7 @@ type Modal = {
   children: JSX.Element;
 };
 
-const Modal = ({ open, setOpen, title, children }: Modal) => {
+const Modal = ({ open, setOpen, title, children }: ModalProps) => {
   const cancelButtonRef = useRef(null);
 
   return (

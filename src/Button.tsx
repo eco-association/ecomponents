@@ -5,7 +5,7 @@ import * as Icons from "@heroicons/react/outline";
 
 import classnames from "classnames";
 
-import colors from "../styles/colors";
+import colors from "./styles/colors";
 
 export type Intent = "basic" | "danger" | "none";
 

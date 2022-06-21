@@ -12,6 +12,8 @@ import { toast as reactToastify } from "react-toastify";
 
 import classnames from "classnames";
 
+import "./toast.css";
+
 const Icons = {
   basic: BellIcon,
   success: CheckCircleIcon,

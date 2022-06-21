@@ -11,6 +11,7 @@ type LinkProps = {
 
 const Link = ({ value, href, openInNewTab = true }: LinkProps) => {
   return (
+    // eslint-disable-next-line react/jsx-no-target-blank
     <a
       className="text-eco-blue-primary hover:underline underline-eco-blue-primary"
       rel={openInNewTab ? "noopener noreferrer" : undefined}

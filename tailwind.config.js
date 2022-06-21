@@ -1,5 +1,3 @@
-import colors from "./src/styles/colors";
-
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -11,17 +9,17 @@ module.exports = {
         sans: ["Founders Grotesk"],
       },
       colors: {
-        "eco-blue-primary": colors.bluePrimary,
-        "eco-blue-dark": colors.blueDark,
-        "eco-red-danger": colors.redDanger,
-        "eco-yellow-warning": colors.yellowWarning,
-        "eco-green-success": colors.greenSuccess,
-        "eco-teal-accent": colors.tealAccent,
-        "eco-orange-accent": colors.orangeAccent,
-        "eco-off-black": colors.offBlack,
-        "eco-dark-gray": colors.darkGray,
-        "eco-medium-gray": colors.mediumGray,
-        "eco-light-gray": colors.lightGray,
+        "eco-blue-primary": "#0624E0",
+        "eco-blue-dark": "#04138A",
+        "eco-red-danger": "#DA1E28",
+        "eco-yellow-warning": "#FF9900",
+        "eco-green-success": "#59C785",
+        "eco-teal-accent": "#67DEE5",
+        "eco-orange-accent": "#FF9900",
+        "eco-off-black": "#222222",
+        "eco-dark-gray": "#727272",
+        "eco-medium-gray": "#B7B7B7",
+        "eco-light-gray": "#D9D9D9",
       },
     },
   },
