@@ -1,6 +1,6 @@
 {
   "name": "@beamnetwork/ecomponents",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "dependencies": {
     "@headlessui/react": "^1.6.5",
     "@heroicons/react": "^1.0.6",
