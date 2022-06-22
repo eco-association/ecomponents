@@ -32,7 +32,7 @@ type SelectInputProps<T> = {
   /** when true, this allows the user to select the empty element from the list. this calls onChange with `null`. */
   isNullable?: boolean;
   /** Called when the input is blurred */
-  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (e: FocusEvent<HTMLButtonElement>) => void;
 };
 
 const SelectInput = ({

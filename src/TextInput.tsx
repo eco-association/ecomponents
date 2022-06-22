@@ -92,7 +92,7 @@ const TextInput = ({
       <input
         type={type}
         value={value || ""}
-        step={type === "number" ? "any" : null}
+        step={type === "number" ? "any" : undefined}
         onChange={(e) => onChange(e.target.value)}
         className={className}
         onClick={onClick}

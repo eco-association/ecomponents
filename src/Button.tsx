@@ -32,7 +32,7 @@ type ButtonProps = {
   /** Rendered within the button if there's no label */
   children?: string | string[] | JSX.Element;
   /** Triggered when the button is clicked */
-  onClick?: (event: MouseEvent<HTMLInputElement>) => void;
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   /** type="button" is the default type and has no inherent behavior.
    *  type="reset" will reset the form if the button is meant to be a reset button.
    *  type="submit" will submit the form when used as a submission button */
@@ -109,6 +109,7 @@ const Button = ({
     }
   }
 
+  // @ts-ignore complaining about the iconName being type string
   const Icon = iconName ? Icons[iconName] : null;
 
   return (

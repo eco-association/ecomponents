@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-const capitalizeWords = (str) => {
+const capitalizeWords = (str: string) => {
   return _.startCase(_.lowerCase(str));
 };
 

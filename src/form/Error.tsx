@@ -3,7 +3,7 @@ import React from "react";
 import { FieldError } from "react-hook-form";
 
 type ErrorProps = {
-  error: FieldError;
+  error?: FieldError;
 };
 
 const Error = ({ error }: ErrorProps) => {

@@ -12,19 +12,19 @@ type LayoutType = {
 };
 
 const Layout = ({ routes = [], children }: LayoutType) => {
-  const [account, setAccount] = useState(null);
+  const [hasAccount, setHasAccount] = useState<boolean | undefined>(undefined);
 
   const { data } = useAccount();
 
   useEffect(() => {
-    setAccount(data);
+    setHasAccount(!!data);
   }, [data]);
 
   return (
     <>
       <Header routes={routes} />
       <div className="px-10 pt-4">
-        {account ? (
+        {hasAccount ? (
           children
         ) : (
           <div className="flex text-xl justify-center">
