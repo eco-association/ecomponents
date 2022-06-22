@@ -95,10 +95,6 @@ const AreaChart = ({
     tooltip: tooltip(series, xAxisType, colors),
   };
 
-  const yData = _.flatten(
-    series.map((group) => group.data.map((point) => point.y))
-  );
-
   return (
     <div key="area-chart" className="w-full">
       <h3 className="text-lg ml-4 font-medium">{chartTitle}</h3>
