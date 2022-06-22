@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { ConnectWalletButton } from "../components/application";
-
 import { useAccount } from "wagmi";
 
-import { Header } from ".";
+import { Header, ConnectWalletButton } from ".";
 
 import { Route } from "./Header";
 

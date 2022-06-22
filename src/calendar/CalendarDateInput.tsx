@@ -7,7 +7,7 @@ import { TextInput } from "..";
 
 import CalendarDateHeader from "./CalendarDateInputHeader";
 
-import "calendar-date-input.css";
+import "./calendar-date-input.css";
 
 type CalendarDateInputProps = {
   /** The value of the CalendarDateInput */
