@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Control, Controller } from "react-hook-form";
+import { Control, FieldValues, Controller } from "react-hook-form";
 
 import { CalendarDateInput, Label } from "..";
 
@@ -12,7 +12,7 @@ import capitalizeWords from "../utilities/capitalizeWords";
 
 type FormSelectInputProps<T> = {
   /** The control for this instance of React Hook Form */
-  control: Control;
+  control: Control<FieldValues, any>;
   /** The name of the component in reference to the form values */
   name: string;
   /** The placeholder text that will be displayed when the input is empty */

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Control, Controller } from "react-hook-form";
+import { Control, FieldValues, Controller } from "react-hook-form";
 
 import { TextInput, Label } from "../";
 
@@ -13,7 +13,7 @@ import Rules from "./rules";
 import capitalizeWords from "../utilities/capitalizeWords";
 
 type FormTextInputProps = {
-  control: Control;
+  control: Control<FieldValues, any>;
   name: string;
   placeholder?: string;
   disabled?: boolean;
