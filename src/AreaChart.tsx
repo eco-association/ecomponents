@@ -23,10 +23,13 @@ export type Series = {
   }[];
 };
 
+type xAxisType = "category" | "numeric" | "datetime";
+
 type AreaChartProps = {
   chartTitle: string;
   series: Series[];
   colors: string[];
+  xAxisType: xAxisType;
   curve?: "straight" | "smooth" | "stepline";
   stacked?: boolean;
   // Optionally label data, length must be = to data slice
@@ -37,6 +40,7 @@ const AreaChart = ({
   chartTitle,
   series,
   colors,
+  xAxisType = "numeric",
   curve = "straight",
   stacked = false,
 }: AreaChartProps): JSX.Element => {
@@ -58,10 +62,15 @@ const AreaChart = ({
     },
     colors: colors as any[],
     xaxis: {
-      type: "datetime" as const,
+      type: xAxisType,
       labels: {
-        formatter: (val: any, _: number) =>
-          `${moment(val).format("MMM DD, 'YY")}`,
+        formatter: (val: any, _: number) => {
+          if (xAxisType === "datetime") {
+            return `${moment(val).format("MMM DD, 'YY")}`;
+          } else {
+            return val;
+          }
+        },
       },
     },
     yaxis: {
@@ -83,7 +92,7 @@ const AreaChart = ({
       show: false,
     },
     series,
-    tooltip: tooltip(series, colors),
+    tooltip: tooltip(series, xAxisType, colors),
   };
 
   const yData = _.flatten(
@@ -113,7 +122,7 @@ const AreaChart = ({
   );
 };
 
-const tooltip = (series: Series[], colors: string[]) => ({
+const tooltip = (series: Series[], xAxisType: xAxisType, colors: string[]) => ({
   enabled: true,
   custom: ({
     series: _series,
@@ -121,9 +130,12 @@ const tooltip = (series: Series[], colors: string[]) => ({
     dataPointIndex,
     w,
   }: TooltipType) => {
-    const date = moment(series[seriesIndex].data[dataPointIndex].x).format(
-      "MMM DD, YYYY"
-    );
+    let category = series[seriesIndex].data[dataPointIndex].x;
+    if (xAxisType === "datetime") {
+      category = moment(series[seriesIndex].data[dataPointIndex].x).format(
+        "MMM DD, YYYY"
+      );
+    }
 
     const reversedSeries = _.reverse([...series]);
 
@@ -155,7 +167,7 @@ const tooltip = (series: Series[], colors: string[]) => ({
       <div class="arrow_box p-3 bg-white text-black text-xs w-72">
         <div class="flex flex-col gap-2">
           <div class="text-sm">
-            ${date}
+            ${category}
           </div>
           ${legend}
         </div>
