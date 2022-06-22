@@ -1,7 +1,6 @@
 {
-  "name": "@ecoinc/ecomponents",
+  "name": "@beamnetwork/ecomponents",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "@headlessui/react": "^1.6.5",
     "@heroicons/react": "^1.0.6",
@@ -51,6 +50,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "publishConfig": {
+    "registry": "https://www.npmjs.com/org/beamnetwork"
   },
   "description": "Eco React component library",
   "main": "src/index.ts",
