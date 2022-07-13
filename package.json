@@ -1,40 +1,26 @@
 {
-  "name": "@beamnetwork/ecomponents",
+  "name": "@ecoinc/ecomponents",
+  "description": "Eco React component library",
   "version": "0.1.11",
-  "dependencies": {
-    "@headlessui/react": "^1.6.5",
-    "@heroicons/react": "^1.0.6",
-    "@rainbow-me/rainbowkit": "^0.3.1",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/lodash": "^4.14.182",
-    "apexcharts": "^3.35.3",
-    "autoprefixer": "^10.4.7",
-    "babel-core": "^6.26.3",
-    "babel-runtime": "^6.26.0",
-    "classnames": "^2.3.1",
-    "ethers": "^5.6.9",
-    "moment": "^2.29.3",
-    "postcss": "^8.4.14",
-    "prettier": "^2.7.1",
-    "rc-tooltip": "^5.1.1",
-    "react": "^18.2.0",
-    "react-apexcharts": "^1.4.0",
-    "react-datepicker": "^4.8.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.32.2",
-    "react-loader-spinner": "^5.1.5",
-    "react-scripts": "5.0.1",
-    "react-toastify": "^9.0.4",
-    "rollup": "^2.75.7",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-typescript2": "^0.32.1",
-    "tailwindcss": "^3.1.4",
-    "typescript": "^4.7.3",
-    "wagmi": "^0.4.12",
-    "web-vitals": "^2.1.4"
+  "license": "ISC",
+  "author": "@francistogram",
+  "homepage": "https://github.com/eco/ecomponents#readme",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eco/ecomponents.git"
   },
+  "bugs": {
+    "url": "https://github.com/eco/ecomponents/issues"
+  },
+  "publishConfig": {
+    "registry": "https://www.npmjs.com/org/ecoinc"
+  },
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "start": "react-scripts start",
     "build": "rollup -c",
@@ -43,10 +29,56 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
-  "files": [
-    "/lib/**/*.js",
-    "/lib/**/*.css"
-  ],
+  "dependencies": {
+    "@headlessui/react": "^1.6.5",
+    "@heroicons/react": "^1.0.6",
+    "@rainbow-me/rainbowkit": "^0.3.1",
+    "apexcharts": "^3.35.3",
+    "autoprefixer": "^10.4.7",
+    "classnames": "^2.3.1",
+    "ethers": "^5.6.9",
+    "moment": "^2.29.3",
+    "rc-tooltip": "^5.1.1",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.4.0",
+    "react-datepicker": "^4.8.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.32.2",
+    "react-loader-spinner": "^5.1.5",
+    "react-toastify": "^9.0.4",
+    "tailwindcss": "^3.1.4",
+    "wagmi": "^0.4.12"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-interactions": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/builder-webpack5": "^6.5.9",
+    "@storybook/manager-webpack5": "^6.5.9",
+    "@storybook/node-logger": "^6.5.9",
+    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/react": "^6.5.9",
+    "@storybook/testing-library": "^0.0.13",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/lodash": "^4.14.182",
+    "@types/react-datepicker": "^4.4.2",
+    "babel-core": "^6.26.3",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "babel-runtime": "^6.26.0",
+    "postcss": "^8.4.14",
+    "prettier": "^2.7.1",
+    "prop-types": "^15.8.1",
+    "react-scripts": "5.0.1",
+    "rollup": "^2.75.7",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.32.1",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.73.0",
+    "typescript": "^4.7.3"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -74,37 +106,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "prepublish": "tsc",
-  "publishConfig": {
-    "registry": "https://www.npmjs.com/org/beamnetwork"
-  },
-  "description": "Eco React component library",
-  "main": "lib/index.js",
-  "devDependencies": {
-    "@storybook/addon-actions": "^6.5.9",
-    "@storybook/addon-essentials": "^6.5.9",
-    "@storybook/addon-interactions": "^6.5.9",
-    "@storybook/addon-links": "^6.5.9",
-    "@storybook/builder-webpack5": "^6.5.9",
-    "@storybook/manager-webpack5": "^6.5.9",
-    "@storybook/node-logger": "^6.5.9",
-    "@storybook/preset-create-react-app": "^4.1.2",
-    "@storybook/react": "^6.5.9",
-    "@storybook/testing-library": "^0.0.13",
-    "@types/react-datepicker": "^4.4.2",
-    "babel-plugin-named-exports-order": "^0.0.2",
-    "prop-types": "^15.8.1",
-    "webpack": "^5.73.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/eco/ecomponents.git"
-  },
-  "author": "@francistogram",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/eco/ecomponents/issues"
-  },
-  "homepage": "https://github.com/eco/ecomponents#readme"
+  }
 }
