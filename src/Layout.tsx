@@ -14,11 +14,11 @@ type LayoutType = {
 const Layout = ({ routes = [], children }: LayoutType) => {
   const [hasAccount, setHasAccount] = useState<boolean | undefined>(undefined);
 
-  const { data } = useAccount();
+  const { isConnected } = useAccount();
 
   useEffect(() => {
-    setHasAccount(!!data);
-  }, [data]);
+    setHasAccount(isConnected);
+  }, [isConnected]);
 
   return (
     <>

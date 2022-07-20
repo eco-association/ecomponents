@@ -1,7 +1,6 @@
 import "./styles/index.css";
 
 export { default as Alert } from "./Alert";
-export { default as AreaChart } from "./AreaChart";
 export { default as Badge } from "./Badge";
 export { default as Button } from "./Button";
 export { CalendarDateInput } from "./calendar";
@@ -17,5 +16,6 @@ export { default as SelectInput } from "./SelectInput";
 export { default as TextInput } from "./TextInput";
 export { default as toast } from "./toast";
 export { default as Tooltip } from "./tooltip";
+export { default as EcoColors } from "./styles/colors";
 
 export * from "./form";

@@ -1,13 +1,13 @@
 import React, { FocusEvent } from "react";
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import ReactDatePicker from "react-datepicker";
+import "./calendar-date-input.css";
 
 import { TextInput } from "..";
 
 import CalendarDateHeader from "./CalendarDateInputHeader";
 
-import "./calendar-date-input.css";
+const { default: DatePicker } = ReactDatePicker as any;
 
 type CalendarDateInputProps = {
   /** The value of the CalendarDateInput */

@@ -6,7 +6,7 @@ import {
   XCircleIcon,
   ExclamationCircleIcon,
   InformationCircleIcon,
-} from "@heroicons/react/outline";
+} from "@heroicons/react/outline/index.js";
 
 import { toast as reactToastify } from "react-toastify";
 

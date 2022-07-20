@@ -1,7 +1,7 @@
 import React, { Fragment, FocusEvent } from "react";
 
 import { Listbox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronDownIcon, XIcon } from "@heroicons/react/outline";
+import { CheckIcon, ChevronDownIcon, XIcon } from "@heroicons/react/outline/index.js";
 
 import classnames from "classnames";
 

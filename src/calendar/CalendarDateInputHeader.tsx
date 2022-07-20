@@ -4,7 +4,7 @@ import { ReactDatePickerCustomHeaderProps } from "react-datepicker";
 
 import moment from "moment";
 
-import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/outline";
+import { ChevronRightIcon, ChevronLeftIcon } from "@heroicons/react/outline/index.js";
 
 import { SelectInput } from "..";
 

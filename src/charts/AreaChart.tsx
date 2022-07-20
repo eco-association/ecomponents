@@ -3,7 +3,7 @@ import React from "react";
 import moment from "moment";
 import _ from "lodash";
 
-import Chart from "react-apexcharts";
+import Chart from "react-apexcharts/dist/react-apexcharts.min.js";
 
 type TooltipType = {
   series: any[][];
@@ -25,7 +25,7 @@ export type Series = {
 
 type xAxisType = "category" | "numeric" | "datetime";
 
-type AreaChartProps = {
+export type AreaChartProps = {
   chartTitle: string;
   series: Series[];
   colors: string[];

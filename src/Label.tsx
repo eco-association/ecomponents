@@ -1,6 +1,6 @@
 import React from "react";
 
-import { InformationCircleIcon } from "@heroicons/react/outline";
+import { InformationCircleIcon } from "@heroicons/react/outline/index.js";
 
 import { Tooltip } from "./";
 

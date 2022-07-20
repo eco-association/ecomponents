@@ -6,7 +6,7 @@ import {
   ExclamationIcon,
   XCircleIcon,
   XIcon,
-} from "@heroicons/react/outline";
+} from "@heroicons/react/outline/index.js";
 
 import classnames from "classnames";
 

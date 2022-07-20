@@ -1,6 +1,6 @@
 import React, { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
+import { CheckIcon } from "@heroicons/react/outline/index.js";
 
 import Button from "./Button";
 

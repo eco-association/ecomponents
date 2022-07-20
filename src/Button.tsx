@@ -1,9 +1,10 @@
 import React, { MouseEvent } from "react";
-import { TailSpin } from "react-loader-spinner";
 
-import * as Icons from "@heroicons/react/outline";
+import * as Icons from "@heroicons/react/outline/index.js";
 
 import classnames from "classnames";
+
+import TailSpin from "./TailSpin";
 
 import colors from "./styles/colors";
 
@@ -109,7 +110,6 @@ const Button = ({
     }
   }
 
-  // @ts-ignore complaining about the iconName being type string
   const Icon = iconName ? Icons[iconName] : null;
 
   return (
