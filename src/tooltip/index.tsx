@@ -1,7 +1,6 @@
 import React from "react";
 
 import ReactTooltip from "rc-tooltip";
-// import "rc-tooltip/assets/bootstrap_white.css";
 
 import colors from "../styles/colors";
 

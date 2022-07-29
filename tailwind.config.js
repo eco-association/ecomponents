@@ -1,5 +1,6 @@
 module.exports = {
   content: ["./lib/**/*.{js,mjs,ejs,ts,jsx,tsx}"],
+  safelist: [{ pattern: /./ }],
   theme: {
     extend: {
       fontFamily: {
