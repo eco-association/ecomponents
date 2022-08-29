@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 import classnames from "classnames";
 
@@ -9,11 +9,11 @@ type BadgeProps = {
    *  Light badges are filled in with a lighter opacity of the color + dark text
    *  Hollow buttons have no background with colored border and text */
   kind: "solid" | "light" | "hollow";
-  /** Rendered within the Badge */
-  children: string | JSX.Element;
+  onClick?: () => void;
+  children: ReactNode;
 };
 
-const Badge = ({ intent, kind = "solid", children }: BadgeProps) => {
+const Badge = ({ intent, kind = "solid", onClick, children }: BadgeProps) => {
   const className = classnames(
     "inline-flex items-center h-0 px-2.5 py-2.5 rounded-lg text-xs font-medium",
     /** Basic Styles */
@@ -80,18 +80,24 @@ const Badge = ({ intent, kind = "solid", children }: BadgeProps) => {
     },
     /** None Styles */
     {
-      "bg-black text-white": intent === "none" && kind === "solid",
+      "bg-eco-medium-gray text-white": intent === "none" && kind === "solid",
     },
     {
-      "bg-black/25 text-black": intent === "none" && kind === "light",
+      "bg-eco-dark-gray/10 text-eco-dark-gray":
+        intent === "none" && kind === "light",
     },
     {
-      "bg-inherit border border-black text-black":
+      "bg-inherit border border-eco-medium-gray text-eco-medium-gray":
         intent === "none" && kind === "hollow",
-    }
+    },
+    { "hover:opacity-75 cursor-pointer": !!onClick }
   );
 
-  return <div className={className}>{children}</div>;
+  return (
+    <div className={className} onClick={onClick}>
+      {children}
+    </div>
+  );
 };
 
 export default Badge;

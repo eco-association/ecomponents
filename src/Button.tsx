@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEventHandler, ReactNode } from "react";
 
 import * as Icons from "@heroicons/react/outline/index.js";
 
@@ -8,11 +8,13 @@ import TailSpin from "./TailSpin";
 
 import colors from "./styles/colors";
 
-export type Intent = "basic" | "danger" | "none";
+type Intent = "basic" | "danger" | "none";
 
-export type Kind = "solid" | "hollow" | "bare" | "blank";
+type Kind = "solid" | "hollow" | "bare" | "blank";
 
-type ButtonProps = {
+type Size = "sm" | "md" | "lg";
+
+export type ButtonProps = {
   /** The text that represents the primary action of the button. */
   label?: string;
   /** We skew toward only using specifying an intent when there is a direct correlation
@@ -23,6 +25,10 @@ type ButtonProps = {
    *  Bare buttons can be used for rows of buttons or for more subtle buttons
    *  Blank buttons drop all padding and just retain colors */
   kind?: Kind;
+  /** The size of the button
+   *  sm has a height of
+   */
+  size?: Size;
   /** Whether the icon is loading or not */
   loading?: boolean;
   /** Give the button the disabled attribute, drop its opacity, and remove pointer-events. */
@@ -31,19 +37,21 @@ type ButtonProps = {
    *  Full list of names: https://unpkg.com/browse/@heroicons/react@1.0.6/outline/ */
   iconName?: string;
   /** Rendered within the button if there's no label */
-  children?: string | string[] | JSX.Element;
+  children?: ReactNode;
   /** Triggered when the button is clicked */
-  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+
+  onClick?: MouseEventHandler;
   /** type="button" is the default type and has no inherent behavior.
    *  type="reset" will reset the form if the button is meant to be a reset button.
    *  type="submit" will submit the form when used as a submission button */
   type?: "button" | "submit" | "reset";
 };
 
-const Button = ({
+export const Button = ({
   label,
   intent = "basic",
   kind = "solid",
+  size = "md",
   loading = false,
   disabled = false,
   iconName,
@@ -52,7 +60,17 @@ const Button = ({
   type = "button",
 }: ButtonProps) => {
   const className = classnames(
-    "inline-flex items-center px-5 h-10 py-2 w-fit border rounded-full shadow-sm text-md font-medium hover:opacity-80",
+    "inline-flex items-center px-5 w-fit border rounded-full shadow-sm font-medium hover:opacity-80",
+    // Button Size
+    {
+      "h-8 py-1 text-sm": size === "sm",
+    },
+    {
+      "h-10 py-2 text-md": size === "md",
+    },
+    {
+      "h-12 py-2 text-lg": size === "lg",
+    },
     // Basic Buttons
     {
       "bg-eco-blue-primary text-white": intent === "basic" && kind === "solid",
@@ -86,7 +104,7 @@ const Button = ({
         intent === "none" && kind === "hollow",
     },
     {
-      "text-black shadow-none":
+      "text-black shadow-none hover:drop-shadow-xl":
         intent === "none" && ["blank", "bare"].includes(kind),
     },
     // Blank Buttons
@@ -131,5 +149,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;

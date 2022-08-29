@@ -2,7 +2,7 @@ import React, { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/outline/index.js";
 
-import Button from "./Button";
+import { Button } from "./Button";
 
 /** This is an opinionated version of a Modal that's really just used for confirmations
  *  e.g. Are you sure you want to do X? and provides the styling and layout for that

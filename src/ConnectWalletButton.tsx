@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-
 import { toast } from "react-toastify";
-
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
-import Button, { Intent, Kind } from "./Button";
+import { Button, ButtonProps } from "./Button";
 
 type ConnectWalletButtonProps = {
-  intent: Intent;
-  kind: Kind;
+  intent: ButtonProps["intent"];
+  kind: ButtonProps["kind"];
 };
 
 const ConnectWalletButton = ({ intent, kind }: ConnectWalletButtonProps) => {
