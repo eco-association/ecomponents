@@ -13,7 +13,7 @@ module.exports = {
   ],
   plugins: [
     "@babel/plugin-transform-runtime",
-    "macros",
+    "@emotion",
     [
       "module-resolver",
       {
