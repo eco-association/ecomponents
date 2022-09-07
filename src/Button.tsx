@@ -1,40 +1,21 @@
 import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import { CustomizableComponent } from "./types/components";
 
-export const BaseButton = styled.button`
-  background-color: transparent;
-  border: none;
-  border-radius: 0.5em;
-  color: currentColor;
-  cursor: pointer;
-  font-size: inherit;
-  font-weight: inherit;
-  height: inherit;
-  line-height: inherit;
-  margin: 0;
-  padding: 0;
-  :enabled {
-    transition: filter 0.125s linear;
-  }
-  :disabled {
-    cursor: initial;
-    filter: opacity(0.4);
-  }
-`;
-const transitionCss = css`
-  transition: background-color 0.125s linear, border-color 0.125s linear,
-    filter 0.125s linear;
-`;
+interface ButtonProps extends CustomizableComponent {}
 
-export const Button = styled(BaseButton)<{ transition?: boolean }>`
-  background-color: green;
-  border: 1px solid transparent;
-  color: ${({ color = "interactive" }) =>
-    color === "interactive" ? "green" : "blue"};
-  :enabled {
-    ${({ transition = true }) => transition && transitionCss};
-  }
-  :enabled:hover {
-    background-color: green;
-  }
-`;
+export const Button = styled("button")<ButtonProps>(({ theme, color }) => ({
+  ...theme["typography"]["button"],
+  minWidth: 120,
+  borderRadius: 4,
+  border: 0,
+  padding: "10px 24px",
+  color: theme["patelle"][color || "primary"]["contrastText"],
+  backgroundColor: theme["patelle"][color || "primary"]["main"],
+  ...(color === "error"
+    ? {
+        borderWidth: 1,
+        borderStyle: "solid",
+        borderColor: theme["patelle"]["error"]["main"],
+      }
+    : {}),
+}));

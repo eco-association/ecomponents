@@ -1,14 +1,10 @@
 import React from "react";
 import { Theme, ThemeProvider } from "@emotion/react";
 import merge from "lodash.merge";
-import {
-  PaletteColorOptions,
-  TypeBackground,
-  TypeText,
-} from "../types/emotion";
 import { Gray } from "../colors";
 import { createTypography } from "./utils/createTypography";
 import { GlobalStyle } from "./GlobalStyle";
+import { PaletteColorOptions, TypeBackground, TypeText } from "../types/theme";
 
 export interface PaletteOptions {
   primary?: PaletteColorOptions;
@@ -36,13 +32,12 @@ interface EcoThemeProps {
 const rootTheme: Theme = {
   patelle: {
     primary: {
-      main: "#0624E0",
+      main: "#6F8EFF",
       contrastText: "#000000CC",
     },
     secondary: {
-      main: "#6F8EFF",
+      main: "#5AE4BF",
       contrastText: "#22313A",
-      bg: "#6F8EFF7F",
     },
     success: {
       main: "#5AE4BF",
