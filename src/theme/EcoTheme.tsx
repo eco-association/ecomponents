@@ -67,8 +67,8 @@ const rootTheme: Theme = {
       disabled: Gray.medlight,
     },
     background: {
-      default: "",
-      paper: "",
+      default: "#FFFFFF",
+      paper: Gray.bg,
     },
   },
   typography: createTypography(),
