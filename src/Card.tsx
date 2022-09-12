@@ -2,16 +2,17 @@ import styled from "@emotion/styled";
 import { Gray } from "./colors";
 
 interface CardProps {
-  color: "default" | "paper";
+  active?: boolean;
+  color?: "default" | "paper";
 }
 
-export const Card = styled("button")<CardProps>(
-  ({ theme, color = "default" }) => ({
-    borderRadius: 14,
+export const Card = styled("div")<CardProps>(
+  ({ theme, color = "default", active = false }) => ({
+    padding: 24,
     borderWidth: 1,
+    borderRadius: 14,
     borderStyle: "solid",
-    borderColor: Gray.medlight,
-    padding: "40px 30px",
-    backgroundColor: theme["patelle"]["background"][color],
+    backgroundColor: theme.palette.background[color],
+    borderColor: active ? theme.palette.text.active : Gray.medlight,
   })
 );

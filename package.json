@@ -1,7 +1,7 @@
 {
   "name": "@ecoinc/ecomponents",
   "description": "Eco components library",
-  "version": "0.2.0-beta.2",
+  "version": "0.2.0-beta.5",
   "license": "ISC",
   "author": "carlosfebres",
   "homepage": "https://github.com/eco/ecomponents#readme",
@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.17.0",
+    "clsx": "^1.2.1",
     "lodash.merge": "^4.6.2"
   },
   "peerDependencies": {

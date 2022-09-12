@@ -1,9 +1,6 @@
 import "@emotion/react";
-import { Palette, Typography } from "./theme";
+import { Theme as EcoTheme } from "./theme";
 
 declare module "@emotion/react" {
-  export interface Theme {
-    patelle: Palette;
-    typography: Typography;
-  }
+  export interface Theme extends EcoTheme {}
 }

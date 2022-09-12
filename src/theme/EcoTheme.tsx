@@ -30,32 +30,34 @@ interface EcoThemeProps {
 }
 
 const rootTheme: Theme = {
-  patelle: {
+  palette: {
     primary: {
-      main: "#6F8EFF",
+      main: "#04128b",
       contrastText: "#000000CC",
     },
     secondary: {
-      main: "#5AE4BF",
+      main: Gray.med,
       contrastText: "#22313A",
+      bg: Gray.bg,
     },
     success: {
       main: "#5AE4BF",
-      contrastText: "#0B331B",
-      bg: "#5AE4BF7F",
+      contrastText: "#22313A",
+      bg: "#5ae4bf0d",
     },
     info: {
       main: "#6F8EFF",
       contrastText: "#22313A",
-    },
-    warning: {
-      main: "",
-      contrastText: "",
+      bg: "#6F8EFF0C",
     },
     error: {
       main: "#DA1E28",
-      contrastText: "#510408",
-      bg: "#DA1E287F",
+      contrastText: "#22313A",
+      bg: "#DA1E280D",
+    },
+    disabled: {
+      main: Gray.medlight,
+      contrastText: Gray.medlight,
     },
     common: {
       light: "#FFFFFF",
@@ -63,12 +65,13 @@ const rootTheme: Theme = {
     },
     text: {
       primary: "#22313A",
-      secondary: Gray.med,
+      active: "#0624E0",
       disabled: Gray.medlight,
     },
     background: {
       default: "#FFFFFF",
       paper: Gray.bg,
+      light: Gray.light,
     },
   },
   typography: createTypography(),

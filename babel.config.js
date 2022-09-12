@@ -6,14 +6,15 @@ module.exports = {
       "@babel/preset-react",
       {
         development: false,
-        runtime: "classic",
+        runtime: "automatic",
+        importSource: "@emotion/react",
       },
     ],
     ["@babel/preset-typescript", { isTSX: true, allExtensions: true }],
   ],
   plugins: [
     "@babel/plugin-transform-runtime",
-    "@emotion",
+    "@emotion/babel-plugin",
     [
       "module-resolver",
       {

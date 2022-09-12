@@ -1,9 +1,4 @@
-import { Theme } from "@emotion/react";
-import {Color} from "./theme";
-
-export type PropsWithTheme<Props = {}> = Props & {
-  theme?: Theme;
-};
+import { Color } from "./theme";
 
 export interface CustomizableComponent {
   color?: Color;
