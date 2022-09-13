@@ -9,6 +9,7 @@ export * from "./ProgressBar";
 export * from "./Arrows";
 export * from "./Tab";
 export * from "./Tabs";
+export * from "./Dialog";
 
 export { Column } from "./Column";
 export type { ColumnProps } from "./Column";

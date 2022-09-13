@@ -3,7 +3,6 @@ const commonjs = require("@rollup/plugin-commonjs");
 const inject = require("@rollup/plugin-inject");
 const { nodeResolve: resolve } = require("@rollup/plugin-node-resolve");
 const { default: dts } = require("rollup-plugin-dts");
-const url = require("@rollup/plugin-url");
 const svgr = require("@svgr/rollup");
 const externals = require("rollup-plugin-node-externals");
 
@@ -20,7 +19,6 @@ const transpile = {
     resolve({ extensions: EXTENSIONS }), // resolves third-party modules within node_modules/
 
     // Source code transformation
-    url({ include: ["**/*.png", "**/*.svg"], limit: Infinity }), // imports assets as data URIs
     svgr({ jsxRuntime: "automatic" }), // imports svgs as React components (without re-importing React)
     commonjs(), // transforms cjs dependencies into tree-shakeable ES modules
 
@@ -63,8 +61,6 @@ const cjs = {
 const types = {
   input: "dts/index.d.ts",
   output: { file: "dist/index.d.ts" },
-  external: (source) =>
-    source.endsWith(".scss") || source.endsWith("/external.d.ts"),
   plugins: [dts({ compilerOptions: { baseUrl: "dts" } })],
   watch: false,
 };

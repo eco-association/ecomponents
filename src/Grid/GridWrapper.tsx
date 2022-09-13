@@ -4,12 +4,8 @@ import GridItem from "./GridItem";
 import GridContainer from "./GridContainer";
 import { GridContainerProps } from "./types";
 
-export class Grid extends React.Component<GridContainerProps> {
-  static Item = GridItem;
+export const Grid = ({ ...props }: GridContainerProps) => {
+  return <GridContainer {...props} />;
+};
 
-  render(): React.ReactElement {
-    return <GridContainer {...this.props} />;
-  }
-}
-
-export default Grid;
+Grid.Item = GridItem;

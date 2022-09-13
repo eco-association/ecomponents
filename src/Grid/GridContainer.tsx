@@ -1,54 +1,29 @@
 import React from "react";
-import {ContainerTags, GridContainerProps} from "./types";
-import {checkOverlapping, trimUndefined} from "./utils";
-import {Property} from "csstype";
+import { ContainerTags, GridContainerProps } from "./types";
+import { checkOverlapping, trimUndefined } from "./utils";
+import { Property } from "csstype";
 
-function GridContainer({
-  // 'display'
+const GridContainer: React.FC<GridContainerProps> = ({
   inline,
-
-  // 'grid-template-columns'
   columns,
-
-  // 'grid-template-rows'
   rows,
-
-  // 'grid-template-areas'
   areas,
-
-  // 'grid-template'
   template,
-
-  // 'grid-gap' or 'gap'
   gap,
   gridGap,
-
-  // 'grid-column-gap' or 'column-gap'
   columnGap,
-
-  // 'grid-row-gap or row-gap'
   rowGap,
-
-  // 'justify-items' short
   justifyItemsStart,
   justifyItemsEnd,
   justifyItemsCenter,
   justifyItemsStretch,
-  // 'justify-items' manual
   justifyItems,
-
-  // 'align-items' short
   alignItemsStart,
   alignItemsEnd,
   alignItemsCenter,
   alignItemsStretch,
-  // 'align-items' manual
   alignItems,
-
-  // 'place-items'
   placeItems,
-
-  // 'justify-content' short
   justifyContentStart,
   justifyContentEnd,
   justifyContentCenter,
@@ -56,10 +31,7 @@ function GridContainer({
   justifyContentSpaceAround,
   justifyContentSpaceBetween,
   justifyContentSpaceEvenly,
-  // 'justify-content' manual
   justifyContent,
-
-  // 'align-content' short
   alignContentStart,
   alignContentEnd,
   alignContentCenter,
@@ -67,33 +39,19 @@ function GridContainer({
   alignContentSpaceAround,
   alignContentSpaceBetween,
   alignContentSpaceEvenly,
-  // 'align-content' manual
   alignContent,
-
-  // 'place-content'
   placeContent,
-
-  // 'grid-auto-flow' short
   autoFlowRow,
   autoFlowColumn,
   autoFlowDense,
-  // 'grid-auto-flow' manual
   autoFlow,
-
-  // 'grid-auto-rows'
   autoRows,
-
-  // 'grid-auto-columns'
   autoColumns,
-
-  // tag name
   as: tagName,
-
-  // required
   style = {},
   children,
   ...rest
-}: GridContainerProps): React.ReactElement {
+}) => {
   const displayStyle = React.useMemo(
     (): React.CSSProperties => ({
       display: inline ? "inline-grid" : "grid",
@@ -343,6 +301,6 @@ function GridContainer({
       {children}
     </Tag>
   );
-}
+};
 
 export default GridContainer;
