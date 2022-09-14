@@ -30,7 +30,7 @@ export const Alert = React.forwardRef<
   const text = (
     <React.Fragment>
       {title ? (
-        <Typography color={color} variant="h6">
+        <Typography color={color} variant="h4">
           {title}
         </Typography>
       ) : null}

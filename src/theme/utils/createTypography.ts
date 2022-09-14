@@ -36,12 +36,12 @@ export function createTypography(typography?: TypographyOptions): Typography {
   });
 
   const variants = {
-    h1: buildVariant(fontWeightRegular, 48, 1.167, 0),
-    h2: buildVariant(fontWeightRegular, 34, 1.235, 0.25),
-    h3: buildVariant(fontWeightBold, 24, 1.334, -0.35),
-    h4: buildVariant(fontWeightBold, 20, 1.6, 0.15),
-    h5: buildVariant(fontWeightBold, 18, 1.7, 0.15),
-    h6: buildVariant(fontWeightBold, 15, 1.7, -0.075),
+    h1: buildVariant(fontWeightBold, 24, 1.334, -0.35),
+    h2: buildVariant(fontWeightBold, 20, 1.6, 0.15),
+    h3: buildVariant(fontWeightBold, 18, 1.7, 0.15),
+    h4: buildVariant(fontWeightBold, 15, 1.7, -0.075),
+    h5: buildVariant(fontWeightBold, 13, 1.7, -0.075),
+    h6: buildVariant(fontWeightBold, 11, 1.7, -0.075),
     subtitle1: buildVariant(fontWeightRegular, 16, 1.75, 0.15),
     subtitle2: buildVariant(fontWeightMedium, 14, 1.57, 0.1),
     body1: buildVariant(fontWeightRegular, 15, 1.5, 0.15),

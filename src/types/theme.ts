@@ -8,8 +8,8 @@ export interface TypeBackground {
 
 export interface PaletteColorOptions {
   main: string;
-  bg?: string;
-  contrastText?: string;
+  bg: string;
+  contrastText: string;
 }
 
 export type Variant =
@@ -60,7 +60,6 @@ export type Typography = Record<Variant, CSSProperties> &
 export interface TypeText {
   primary: string;
   active: string;
-  disabled: string;
 }
 
 export interface Palette extends Record<Color, PaletteColorOptions> {

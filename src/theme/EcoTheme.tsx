@@ -34,6 +34,7 @@ const rootTheme: Theme = {
     primary: {
       main: "#04128b",
       contrastText: "#000000CC",
+      bg: "#04128b0d",
     },
     secondary: {
       main: Gray.med,
@@ -58,6 +59,7 @@ const rootTheme: Theme = {
     disabled: {
       main: Gray.medlight,
       contrastText: Gray.medlight,
+      bg: Gray.light,
     },
     common: {
       light: "#FFFFFF",
@@ -66,7 +68,6 @@ const rootTheme: Theme = {
     text: {
       primary: "#22313A",
       active: "#0624E0",
-      disabled: Gray.medlight,
     },
     background: {
       default: "#FFFFFF",

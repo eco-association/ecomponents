@@ -167,6 +167,7 @@ export const Dialog: React.FC<React.PropsWithChildren<DialogProps>> = ({
         content: {
           border: 0,
           padding: 0,
+          zIndex: 100,
           top: "50%",
           left: "50%",
           bottom: "initial",

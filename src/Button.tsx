@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { CustomizableComponent } from "./types/components";
 import { HTMLProps } from "react";
 
-interface ButtonProps
+export interface ButtonProps
   extends CustomizableComponent,
     HTMLProps<HTMLButtonElement> {
   variant?: "fill" | "outline";

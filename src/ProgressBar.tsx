@@ -53,7 +53,6 @@ const BarTextContainer = styled.div<{ right?: boolean }>(
     top: "50%",
     transform: "translate(0, -50%)",
     backgroundColor: theme.palette.background.default,
-    zIndex: 10,
     ...(right ? { right: 30 } : { left: 24 }),
   })
 );
@@ -98,7 +97,9 @@ export const ProgressBar = ({
     percentage: Math.min(1, percentages[index]),
   }));
 
-  const barsSorted = [...bars].sort((a, b) => b.percentage - a.percentage);
+  const barsSorted = [...bars].sort((a, b) =>
+    b.percentage === a.percentage ? -1 : b.percentage - a.percentage
+  );
 
   return (
     <Column gap={12}>
