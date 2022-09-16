@@ -19,13 +19,14 @@ const MenuItemStyled = styled(Typography)<MenuItemProps>(
   })
 );
 
-export const MenuItem = React.forwardRef<HTMLLinkElement, MenuItemProps>(
-  (props, ref) => {
-    const { children } = props;
-    return (
-      <MenuItemStyled as="a" ref={ref} {...props}>
-        {children}
-      </MenuItemStyled>
-    );
-  }
-);
+export const MenuItem = React.forwardRef<
+  HTMLLinkElement,
+  React.PropsWithChildren<MenuItemProps>
+>((props, ref) => {
+  const { children } = props;
+  return (
+    <MenuItemStyled as="a" ref={ref} {...props}>
+      {children}
+    </MenuItemStyled>
+  );
+});

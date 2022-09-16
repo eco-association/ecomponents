@@ -9,6 +9,7 @@ export interface TypeBackground {
 export interface PaletteColorOptions {
   main: string;
   bg: string;
+  bgDark: string;
   contrastText: string;
 }
 
@@ -43,7 +44,6 @@ export interface FontStyle
     fontWeightRegular: React.CSSProperties["fontWeight"];
     fontWeightMedium: React.CSSProperties["fontWeight"];
     fontWeightBold: React.CSSProperties["fontWeight"];
-    htmlFontSize: number;
   }> {}
 
 export interface TypographyOptions

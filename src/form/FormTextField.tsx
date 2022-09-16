@@ -5,6 +5,8 @@ import { Input, InputProps } from "../Input";
 import { Typography } from "../Typography";
 import { UseControllerProps } from "react-hook-form/dist/types/controller";
 import { RegisterOptions } from "react-hook-form/dist/types/validator";
+import styled from "@emotion/styled";
+import { Color } from "../types";
 
 type Rules = {
   required?: boolean | ValidationRule<boolean>;
@@ -23,9 +25,20 @@ type FormTextInputProps = Omit<
   control: any;
   name: string;
   label: React.ReactNode;
+  note?: React.ReactNode;
+  noteColor?: Color;
   type?: "address" | "text" | "password" | "email" | "number";
   rules?: Rules;
 };
+
+const Note = styled.div<Pick<FormTextInputProps, "color">>(
+  ({ theme, color = "primary" }) => ({
+    padding: 8,
+    fontSize: 13,
+    borderRadius: "0 0 4px 4px",
+    backgroundColor: theme.palette[color].bgDark,
+  })
+);
 
 function configureProps(
   props: FormTextInputProps
@@ -91,7 +104,7 @@ function configureProps(
 }
 
 export const FormTextField = (originalProps: FormTextInputProps) => {
-  const { rules, control, name, label, ...props } =
+  const { rules, control, name, label, note, noteColor, ...props } =
     configureProps(originalProps);
 
   return (
@@ -100,12 +113,25 @@ export const FormTextField = (originalProps: FormTextInputProps) => {
       name={name}
       rules={rules}
       render={({ field: fieldProps, fieldState: { error } }) => {
+        const input = (
+          <Input {...props} {...fieldProps} error={!!error || props.error} />
+        );
+
+        const content = note ? (
+          <div>
+            {input}
+            <Note color={noteColor || props.color}>{note}</Note>
+          </div>
+        ) : (
+          input
+        );
+
         return (
           <Column gap="sm">
             <Typography color={props.color}>{label}</Typography>
-            <Input {...props} {...fieldProps} error={!!error || props.error} />
+            {content}
             {!!error ? (
-              <Typography color="error" variant="h5">
+              <Typography color="error" variant="h6">
                 {error.message}
               </Typography>
             ) : null}

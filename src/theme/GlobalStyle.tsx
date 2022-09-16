@@ -16,6 +16,7 @@ export const GlobalStyle = () => {
           * {
             box-sizing: border-box;
           }
+          html,
           body {
             margin: 0;
             font-family: ${theme.typography.fontFamily};
