@@ -1,80 +1,70 @@
-import typescript from "rollup-plugin-typescript2";
-import commonjs from "@rollup/plugin-commonjs";
-import postcss from "rollup-plugin-postcss";
-import copy from "rollup-plugin-copy";
-import externals from "rollup-plugin-node-externals";
+const { babel } = require("@rollup/plugin-babel");
+const commonjs = require("@rollup/plugin-commonjs");
+const inject = require("@rollup/plugin-inject");
+const { nodeResolve: resolve } = require("@rollup/plugin-node-resolve");
+const { default: dts } = require("rollup-plugin-dts");
+const svgr = require("@svgr/rollup");
+const externals = require("rollup-plugin-node-externals");
 
-import pkg from "./package.json";
+const EXTENSIONS = [".js", ".jsx", ".ts", ".tsx"];
 
-const config = [
-  {
-    input: "src/index.ts",
-    output: [
-      {
-        file: pkg.main,
-        format: "cjs",
-        exports: "named",
-        sourcemap: false,
-        strict: false,
-      },
-      {
-        file: pkg.module,
-        format: "esm",
-        sourcemap: false,
-      },
-    ],
-    plugins: [
-      commonjs({
-        esmExternals: true,
-        defaultIsModuleExports: true,
-        transformMixedEsModules: true,
-      }),
-      typescript(),
-      copy({
-        targets: [
-          { src: ["src/fonts/*.woff", "src/fonts/*.woff2"], dest: "lib/fonts" },
-        ],
-      }),
-      postcss({
-        extract: true,
-      }),
-      externals(),
-    ],
-    external: ["react", "react-dom"],
+const transpile = {
+  input: "src/index.ts",
+  plugins: [
+    // Dependency resolution
+    externals({
+      deps: true,
+      peerDeps: true,
+    }),
+    resolve({ extensions: EXTENSIONS }), // resolves third-party modules within node_modules/
+
+    // Source code transformation
+    svgr({ jsxRuntime: "automatic" }), // imports svgs as React components (without re-importing React)
+    commonjs(), // transforms cjs dependencies into tree-shakeable ES modules
+
+    babel({
+      babelHelpers: "runtime",
+      extensions: EXTENSIONS,
+    }),
+    inject({ React: "react" }), // imports React (on the top-level, un-renamed), for the classic runtime
+  ],
+  onwarn: (warning, warn) => {
+    // This pipeline is for transpilation - checking is done through tsc.
+    if (warning.code === "UNUSED_EXTERNAL_IMPORT") return;
+
+    warn(warning);
+    console.log(warning.loc, "\n");
   },
-  {
-    input: "src/charts/index.ts",
-    output: [
-      {
-        file: "lib/charts/index.cjs",
-        format: "cjs",
-        exports: "named",
-        sourcemap: false,
-        strict: false,
-      },
-      {
-        file: "lib/charts/index.mjs",
-        format: "esm",
-        sourcemap: false,
-      },
-    ],
-    plugins: [
-      // nodeResolve({
-      //   resolveOnly: ["react-apexcharts"],
-      // }),
-      commonjs({
-        transformMixedEsModules: true,
-      }),
-      typescript({
-        tsconfigOverride: {
-          include: ["src/charts/*"],
-        },
-      }),
-      postcss({
-        extract: true,
-      }),
-    ],
-    external: ["react", "react-dom"],
+};
+
+const esm = {
+  ...transpile,
+  output: {
+    dir: "dist",
+    format: "esm",
+    sourcemap: false,
   },
-];
-export default config;
+};
+
+const cjs = {
+  ...transpile,
+  output: {
+    dir: "dist/cjs",
+    entryFileNames: "[name].cjs",
+    chunkFileNames: "[name]-[hash].cjs",
+    format: "cjs",
+    sourcemap: false,
+  },
+  watch: false,
+};
+
+const types = {
+  input: "dts/index.d.ts",
+  output: { file: "dist/index.d.ts" },
+  plugins: [dts({ compilerOptions: { baseUrl: "dts" } })],
+  watch: false,
+};
+
+const config = [esm, cjs, types];
+config.config = { ...esm, output: { ...esm.output, sourcemap: true } };
+module.exports = config;

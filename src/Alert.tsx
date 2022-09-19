@@ -1,98 +1,59 @@
 import React from "react";
+import styled from "@emotion/styled";
+import { CustomizableComponent } from "./types/components";
+import { Typography } from "./Typography";
+import { Grid } from "./Grid";
 
-import {
-  InformationCircleIcon,
-  CheckCircleIcon,
-  ExclamationIcon,
-  XCircleIcon,
-  XIcon,
-} from "@heroicons/react/outline/index.js";
+interface AlertProps
+  extends CustomizableComponent,
+    Omit<React.HTMLProps<HTMLDivElement>, "color" | "as"> {
+  title?: string;
+  button?: React.ReactNode;
+}
 
-import classnames from "classnames";
+const AlertStyled = styled("div")<AlertProps>(({ theme, color = "info" }) => ({
+  ...theme["typography"]["body1"],
+  padding: 16,
+  borderWidth: 1,
+  borderRadius: 6,
+  lineHeight: "18px",
+  borderStyle: "solid",
+  letterSpacing: "-0.005em",
+  color: theme.palette.secondary.main,
+  borderColor: theme.palette[color].main,
+  backgroundColor: theme.palette[color].bg,
+}));
 
-type AlertProps = {
-  /** Defines the visual style which conveys the level of importance / urgency to the user */
-  intent: "success" | "info" | "warning" | "danger";
-  /** The main content to be displayed in the center of the banner */
-  message: string | JSX.Element;
-  /** Controls whether the icon is shown */
-  showIcon?: boolean;
-  /** Additional content to be displayed in the center of the banner */
-  additionalMessage?: string | JSX.Element;
-  /** The call to action button at the bottom of the banner */
-  ctaButton?: JSX.Element;
-  /** The X icon only shows when onClose is provided */
-  onClose?: () => void;
-};
+export const Alert = React.forwardRef<
+  HTMLDivElement,
+  React.PropsWithChildren<AlertProps>
+>((props, ref) => {
+  const { button, color, title, children } = props;
+  const text = (
+    <React.Fragment>
+      {title ? (
+        <Typography color={color} variant="h5">
+          {title}
+        </Typography>
+      ) : null}
+      {children}
+    </React.Fragment>
+  );
 
-const Alert = ({
-  intent,
-  message,
-  showIcon = true,
-  additionalMessage,
-  ctaButton,
-  onClose,
-}: AlertProps) => {
-  if (typeof window === "undefined") {
-    return null;
+  if (button) {
+    return (
+      <AlertStyled ref={ref} {...props}>
+        <Grid columns="auto auto" gridGap="16px" alignItems="center">
+          <Grid.Item>{text}</Grid.Item>
+          <Grid.Item>{button}</Grid.Item>
+        </Grid>
+      </AlertStyled>
+    );
   }
 
-  const bodyClassName = classnames("rounded-md p-4 w-full", {
-    "bg-eco-green-success/20": intent === "success",
-    "bg-eco-teal-accent/20": intent === "info",
-    "bg-eco-yellow-warning/20": intent === "warning",
-    "bg-eco-red-danger/20": intent === "danger",
-  });
-
-  const Icons = {
-    success: CheckCircleIcon,
-    info: InformationCircleIcon,
-    warning: ExclamationIcon,
-    danger: XCircleIcon,
-  };
-
-  const iconClassName = classnames("h-5 w-5", {
-    "text-eco-green-success": intent === "success",
-    "text-eco-teal-accent": intent === "info",
-    "text-eco-yellow-warning": intent === "warning",
-    "text-eco-red-danger": intent === "danger",
-  });
-
-  const Icon = Icons[intent];
-
-  const messageClassName = classnames("text-sm ml-3 w-full font-medium", {
-    "text-eco-green-success": intent === "success",
-    "text-eco-teal-accent": intent === "info",
-    "text-eco-yellow-warning": intent === "warning",
-    "text-eco-red-danger": intent === "danger",
-  });
-
   return (
-    <div className={bodyClassName}>
-      <div className="flex">
-        {showIcon && (
-          <div className="flex-shrink-0">
-            <Icon className={iconClassName} aria-hidden="true" />
-          </div>
-        )}
-        <div className={messageClassName}>{message}</div>
-        <div className="ml-auto pl-3">
-          <div className="-mx-1.5 -my-1.5">
-            {onClose ? (
-              <button
-                type="button"
-                onClick={onClose}
-                className="inline-flex bg-green-50 rounded-md p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-50 focus:ring-green-600"
-              >
-                <span className="sr-only">Dismiss</span>
-                <XIcon className="h-5 w-5" aria-hidden="true" />
-              </button>
-            ) : null}
-          </div>
-        </div>
-      </div>
-    </div>
+    <AlertStyled ref={ref} {...props}>
+      {text}
+    </AlertStyled>
   );
-};
-
-export default Alert;
+});

@@ -1,19 +1,21 @@
-import React, { ReactNode } from "react";
+import styled from "@emotion/styled";
+import { Gray } from "./colors";
 
-export type CardProps = {
-  title: string | ReactNode;
-  children: ReactNode;
-};
+interface CardProps {
+  disable?: boolean;
+  color?: "default" | "paper";
+}
 
-export const Card = ({ title, children }: CardProps) => {
-  return (
-    <div className="bg-eco-lightest-gray shadow rounded-md">
-      <div className="px-4 py-5 sm:px-6">
-        <h2 className="text-lg leading-6 font-medium text-black ">{title}</h2>
-      </div>
-      <div className="border-t border-eco-light-gray px-4 py-5 sm:px-6">
-        {children}
-      </div>
-    </div>
-  );
-};
+export const Card = styled("div")<CardProps>(
+  ({ theme, color = "default", disable = false }) => ({
+    padding: 24,
+    borderWidth: 1,
+    borderRadius: 14,
+    borderStyle: "solid",
+    borderColor: Gray.medlight,
+    backgroundColor: theme.palette.background[color],
+    ...(disable
+      ? { cursor: "pointer", userSelect: "none", backgroundColor: "#FAFBFC" }
+      : {}),
+  })
+);
