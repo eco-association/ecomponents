@@ -1,10 +1,10 @@
+import React from "react";
 import styled from "@emotion/styled";
 import { CustomizableComponent } from "./types/components";
-import { HTMLProps } from "react";
 
 export interface ButtonProps
   extends CustomizableComponent,
-    HTMLProps<HTMLButtonElement> {
+    React.HTMLProps<HTMLButtonElement> {
   variant?: "fill" | "outline";
   color?: CustomizableComponent["color"];
 }

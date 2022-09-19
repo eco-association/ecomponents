@@ -4,7 +4,9 @@ import { CustomizableComponent } from "./types/components";
 import { Typography } from "./Typography";
 import { Grid } from "./Grid";
 
-interface AlertProps extends CustomizableComponent {
+interface AlertProps
+  extends CustomizableComponent,
+    Omit<React.HTMLProps<HTMLDivElement>, "color" | "as"> {
   title?: string;
   button?: React.ReactNode;
 }

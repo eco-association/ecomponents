@@ -20,4 +20,5 @@ export * from "./form";
 export * from "./theme";
 export * from "./hooks";
 export * from "./types";
+export * from "./utils";
 export * as Colors from "./colors";
