@@ -1,24 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 import { useTheme } from "./hooks";
 import { ButtonProps } from "./Button";
+import { cloneElement } from "./utils/jsxClone";
 
 const Container = styled.div({ display: "inline-block" });
-
-/**
- * The `css` prop relies on `jsx` which is ignored using `React.cloneElement`
- */
-const cloneElement = (
-  element: React.ReactElement<any, string | React.JSXElementConstructor<any>>,
-  props: Record<string, unknown>
-) => {
-  return jsx(element.type, {
-    key: element.key,
-    ...element.props,
-    ...props,
-  });
-};
 
 const groupedButton = css({
   padding: "4px 8px",

@@ -13,6 +13,8 @@ export * from "./Dialog";
 export * from "./ButtonGroup";
 export * from "./Input";
 export * from "./TokenAmount";
+export * from "./Dropdown";
+export * from "./DropdownItem";
 
 export { Column } from "./Column";
 export type { ColumnProps } from "./Column";
