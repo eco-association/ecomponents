@@ -17,7 +17,7 @@ export const DropdownItem = styled("li")<DropdownItemProps>(
     fontColor = "#FFFFFF",
     fontSize = "11px",
   }) => ({
-    ...theme["typography"],
+    ...theme["typography"]["body3"],
     display: "flex",
     position: "relative",
     alignItems: "center",
