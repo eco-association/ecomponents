@@ -3,11 +3,12 @@ import styled from "@emotion/styled";
 import { CustomizableComponent } from "./types/components";
 import { Typography } from "./Typography";
 import { Grid } from "./Grid";
+import { Column } from "./Column";
 
 interface AlertProps
-  extends CustomizableComponent,
-    Omit<React.HTMLProps<HTMLDivElement>, "color" | "as"> {
-  title?: string;
+  extends Omit<React.HTMLProps<HTMLDivElement>, "color" | "title" | "as"> {
+  color?: CustomizableComponent["color"] | "transparent";
+  title?: React.ReactNode;
   button?: React.ReactNode;
 }
 
@@ -19,25 +20,44 @@ const AlertStyled = styled("div")<AlertProps>(({ theme, color = "info" }) => ({
   lineHeight: "18px",
   borderStyle: "solid",
   letterSpacing: "-0.005em",
+  fontSize: theme.components.alert.fontSize,
   color: theme.palette.secondary.main,
-  borderColor: theme.palette[color].main,
-  backgroundColor: theme.palette[color].bg,
+  "& span": {
+    fontSize: theme.components.alert.fontSize,
+    lineHeight: "18px",
+  },
+  ...(color === "transparent"
+    ? {
+        borderColor: theme.components.alert.borderColor,
+      }
+    : {
+        backgroundColor: theme.palette[color].bg,
+        borderColor:
+          color === "disabled" ? undefined : theme.palette[color].main,
+      }),
 }));
 
 export const Alert = React.forwardRef<
   HTMLDivElement,
   React.PropsWithChildren<AlertProps>
->((props, ref) => {
-  const { button, color, title, children } = props;
+>(({ title, ...props }, ref) => {
+  const { button, color, children } = props;
   const text = (
-    <React.Fragment>
-      {title ? (
-        <Typography color={color} variant="h5">
-          {title}
-        </Typography>
+    <Column gap="sm">
+      {!!title ? (
+        React.isValidElement(title) ? (
+          title
+        ) : (
+          <Typography
+            color={color === "transparent" ? undefined : color}
+            variant="h5"
+          >
+            {title}
+          </Typography>
+        )
       ) : null}
       {children}
-    </React.Fragment>
+    </Column>
   );
 
   if (button) {

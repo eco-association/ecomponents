@@ -4,29 +4,10 @@ import merge from "lodash.merge";
 import { Gray } from "../colors";
 import { createTypography } from "./utils/createTypography";
 import { GlobalStyle } from "./GlobalStyle";
-import { PaletteColorOptions, TypeBackground, TypeText } from "../types/theme";
-
-export interface PaletteOptions {
-  primary?: PaletteColorOptions;
-  secondary?: PaletteColorOptions;
-  error?: PaletteColorOptions;
-  warning?: PaletteColorOptions;
-  info?: PaletteColorOptions;
-  success?: PaletteColorOptions;
-  common?: {
-    light: string;
-    dark: string;
-  };
-  text?: Partial<TypeText>;
-  background?: Partial<TypeBackground>;
-}
-
-interface EcoThemeOption {
-  palette?: PaletteOptions;
-}
+import { CustomEcoTheme } from "../types";
 
 interface EcoThemeProps {
-  theme?: EcoThemeOption;
+  theme?: CustomEcoTheme;
 }
 
 const rootTheme: Theme = {
@@ -81,10 +62,30 @@ const rootTheme: Theme = {
       light: Gray.light,
     },
   },
+  components: {
+    card: {
+      borderColor: Gray.medlight,
+      borderRadius: 14,
+    },
+    button: {
+      md: {
+        fontSize: 15,
+        padding: "10px 24px",
+      },
+      sm: {
+        fontSize: 13,
+        padding: "8px 16px",
+      },
+    },
+    alert: {
+      fontSize: 15,
+      borderColor: "#DCE9F0",
+    },
+  },
   typography: createTypography(),
 };
 
-export const EcoTheme: React.FC<EcoThemeProps> = ({
+export const EcoTheme: React.FC<React.PropsWithChildren<EcoThemeProps>> = ({
   theme: customTheme,
   children,
 }) => {

@@ -10,9 +10,9 @@ export const Card = styled("div")<CardProps>(
   ({ theme, color = "default", disable = false }) => ({
     padding: 24,
     borderWidth: 1,
-    borderRadius: 14,
     borderStyle: "solid",
-    borderColor: Gray.medlight,
+    borderRadius: theme.components.card.borderRadius,
+    borderColor: theme.components.card.borderColor,
     backgroundColor: theme.palette.background[color],
     ...(disable
       ? { cursor: "pointer", userSelect: "none", backgroundColor: "#FAFBFC" }

@@ -4,36 +4,42 @@ import { Color } from "./types";
 import { Row } from "./Row";
 import { Column } from "./Column";
 import { Typography } from "./Typography";
+import React from "react";
 
 interface ProgressBarProps {
+  position?: "left" | "right";
   text?: string;
   textColor?: Color;
   textRight?: boolean;
   color: Color | Color[];
-  label: string | string[];
+  label: React.ReactNode | React.ReactNode[];
   percentage: number | number[];
+  BarContainerProps?: Omit<React.HTMLProps<HTMLDivElement>, "as">;
 }
 
-interface BarProps {
-  label: string;
+type BarProps = React.PropsWithChildren<{
   color: Color;
   percentage: number;
-}
+}>;
 
 const BarsContainer = styled.div(({ theme }) => ({
-  position: "relative",
-  width: "100%",
   height: 5,
+  width: "100%",
+  position: "relative",
+  overflow: "hidden",
   borderRadius: 25,
   backgroundColor: theme.palette.background.light,
 }));
 
-const Bar = styled.div<BarProps>(({ theme, percentage, color }) => ({
-  position: "absolute",
-  height: "100%",
-  width: `${percentage * 100}%`,
-  backgroundColor: theme.palette[color].main,
-}));
+const Bar = styled.div<BarProps & Pick<ProgressBarProps, "position">>(
+  ({ theme, position, percentage, color }) => ({
+    position: "absolute",
+    height: "100%",
+    width: `${percentage * 100}%`,
+    backgroundColor: theme.palette[color].main,
+    ...(position === "right" ? { right: 0 } : { left: 0 }),
+  })
+);
 
 const SquareColor = styled.div<Pick<BarProps, "color">>(({ theme, color }) => ({
   backgroundColor: theme.palette[color].main,
@@ -42,9 +48,7 @@ const SquareColor = styled.div<Pick<BarProps, "color">>(({ theme, color }) => ({
   height: 16,
 }));
 
-const Labels = styled(Row)({
-  flexWrap: "wrap",
-});
+const Labels = styled(Row)({ flexWrap: "wrap" });
 
 const BarTextContainer = styled.div<{ right?: boolean }>(
   ({ theme, right }) => ({
@@ -67,7 +71,7 @@ const BarText = ({ text, color, right }: BarTextProps) => {
   if (!text) return null;
   return (
     <BarTextContainer right={right}>
-      <Typography color={color} variant="body2" css={css({ lineHeight: 2 })}>
+      <Typography color={color} variant="body3" css={css({ lineHeight: 2 })}>
         {text}
       </Typography>
     </BarTextContainer>
@@ -78,11 +82,15 @@ export const ProgressBar = ({
   text,
   textColor,
   textRight,
+  position,
   label: rawLabels,
   color: rawColors,
   percentage: rawPercentages,
+  BarContainerProps,
 }: ProgressBarProps) => {
-  const labels = Array.isArray(rawLabels) ? rawLabels : [rawLabels];
+  const labels: React.ReactNode[] = Array.isArray(rawLabels)
+    ? rawLabels
+    : [rawLabels];
   const colors = Array.isArray(rawColors) ? rawColors : [rawColors];
   const percentages = Array.isArray(rawPercentages)
     ? rawPercentages
@@ -103,21 +111,27 @@ export const ProgressBar = ({
 
   return (
     <Column gap={12}>
-      <BarsContainer>
+      <BarsContainer {...BarContainerProps}>
         <BarText text={text} color={textColor} right={textRight} />
-        {barsSorted.map((bar) => (
-          <Bar key={bar.label} {...bar} />
+        {barsSorted.map((bar, key) => (
+          <Bar key={key} position={position} {...bar} />
         ))}
       </BarsContainer>
-      <Labels gap="lg">
-        {bars.map((bar) => (
-          <Row key={bar.label} gap="sm">
-            <SquareColor color={bar.color} />
-            <Typography variant="body2" color="secondary">
+      <Labels gap="lg" justify={position === "right" ? "end" : undefined}>
+        {bars.map((bar, key) => {
+          const children = [
+            <SquareColor color={bar.color} />,
+            <Typography variant="body3" color="secondary">
               {bar.label}
-            </Typography>
-          </Row>
-        ))}
+            </Typography>,
+          ];
+          if (position === "right") children.reverse();
+          return (
+            <Row key={key} gap="sm" items="center">
+              {children}
+            </Row>
+          );
+        })}
       </Labels>
     </Column>
   );

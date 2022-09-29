@@ -17,7 +17,8 @@ export function createTypography(typography?: TypographyOptions): Typography {
     fontWeightBold = 700,
   } = typography || {};
 
-  const pxToRem = (size: number) => `${size / fontSize}rem`;
+  const pxToRem = (size: number) =>
+    `${size / parseInt(fontSize.toString())}rem`;
   const buildVariant = (
     fontWeight: React.CSSProperties["fontWeight"],
     size: number,
@@ -43,7 +44,8 @@ export function createTypography(typography?: TypographyOptions): Typography {
     subtitle1: buildVariant(fontWeightRegular, 16, 1.75, 0.15),
     subtitle2: buildVariant(fontWeightMedium, 14, 1.57, 0.1),
     body1: buildVariant(fontWeightRegular, 15, 1.5, 0.15),
-    body2: buildVariant(fontWeightRegular, 11, 1.43, 0.15),
+    body2: buildVariant(fontWeightRegular, 13, 1.43, 0.15),
+    body3: buildVariant(fontWeightRegular, 11, 1.43, 0.15),
     button: buildVariant(fontWeightMedium, 15, 1.2, 0.4),
     caption: buildVariant(fontWeightRegular, 12, 1.66, 0.4),
     overline: buildVariant(fontWeightRegular, 12, 2.66, 1),

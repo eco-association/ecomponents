@@ -33,8 +33,8 @@ const gapSizes: Record<GapSize, number> = {
   sm: 4,
   md: 8,
   lg: 16,
-  xl: 32,
-  xxl: 64,
+  xl: 24,
+  xxl: 32,
 };
 
 export const useFlex = ({ gap, items, justify }: FlexComponent) => {
@@ -43,7 +43,7 @@ export const useFlex = ({ gap, items, justify }: FlexComponent) => {
       ? { gap: typeof gap === "number" ? gap : gapSizes[gap] }
       : {}),
     ...(items !== undefined ? { alignItems: items } : {}),
-    ...(justify !== undefined ? { justifyContent: items } : {}),
+    ...(justify !== undefined ? { justifyContent: justify } : {}),
   });
 };
 

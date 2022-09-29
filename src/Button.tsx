@@ -4,20 +4,21 @@ import { CustomizableComponent } from "./types/components";
 
 export interface ButtonProps
   extends CustomizableComponent,
-    React.HTMLProps<HTMLButtonElement> {
+    Omit<React.HTMLProps<HTMLButtonElement>, "color" | "size"> {
+  size?: "md" | "sm";
   variant?: "fill" | "outline";
-  color?: CustomizableComponent["color"];
 }
 
 export const Button = styled("button")<ButtonProps>(
-  ({ theme, color = "primary", variant = "fill", disabled }) => ({
+  ({ theme, color = "primary", variant = "fill", size = "md", disabled }) => ({
     ...theme["typography"]["button"],
     border: 0,
     outline: 0,
-    minWidth: 120,
     borderRadius: 4,
-    padding: "10px 24px",
+    padding: theme.components.button[size].padding,
+    fontSize: theme.components.button[size].fontSize,
     "&:disabled": { opacity: 0.7 },
+    ...(size === "sm" ? {} : { minWidth: 120 }),
     ...(variant === "outline"
       ? {
           color: theme["palette"][color]["main"],

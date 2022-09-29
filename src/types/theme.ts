@@ -1,12 +1,12 @@
-import React, { CSSProperties } from "react";
+import { CSSProperties } from "react";
 
-export interface TypeBackground {
+interface TypeBackground {
   default: string;
   paper: string;
   light: string;
 }
 
-export interface PaletteColorOptions {
+interface PaletteColorOptions {
   main: string;
   bg: string;
   bgDark: string;
@@ -24,6 +24,7 @@ export type Variant =
   | "subtitle2"
   | "body1"
   | "body2"
+  | "body3"
   | "caption"
   | "button"
   | "overline";
@@ -38,12 +39,12 @@ export type Color =
 
 export interface FontStyle
   extends Required<{
-    fontFamily: React.CSSProperties["fontFamily"];
-    fontSize: number;
-    fontWeightLight: React.CSSProperties["fontWeight"];
-    fontWeightRegular: React.CSSProperties["fontWeight"];
-    fontWeightMedium: React.CSSProperties["fontWeight"];
-    fontWeightBold: React.CSSProperties["fontWeight"];
+    fontFamily: CSSProperties["fontFamily"];
+    fontSize: CSSProperties["fontSize"];
+    fontWeightLight: CSSProperties["fontWeight"];
+    fontWeightRegular: CSSProperties["fontWeight"];
+    fontWeightMedium: CSSProperties["fontWeight"];
+    fontWeightBold: CSSProperties["fontWeight"];
   }> {}
 
 export interface TypographyOptions
@@ -62,6 +63,32 @@ export interface TypeText {
   active: string;
 }
 
+interface CardOptions {
+  borderColor: CSSProperties["borderColor"];
+  borderRadius: CSSProperties["borderRadius"];
+}
+
+interface ButtonOptions {
+  fontSize: CSSProperties["fontSize"];
+  padding: CSSProperties["padding"];
+}
+
+interface ButtonStyles {
+  md: ButtonOptions;
+  sm: ButtonOptions;
+}
+
+interface AlertStyles {
+  borderColor: CSSProperties["borderColor"];
+  fontSize: CSSProperties["fontSize"];
+}
+
+export interface ComponentsStyles {
+  card: CardOptions;
+  button: ButtonStyles;
+  alert: AlertStyles;
+}
+
 export interface Palette extends Record<Color, PaletteColorOptions> {
   text: TypeText;
   background: TypeBackground;
@@ -74,4 +101,15 @@ export interface Palette extends Record<Color, PaletteColorOptions> {
 export interface Theme {
   palette: Palette;
   typography: Typography;
+  components: ComponentsStyles;
 }
+
+type RecursivePartial<T> = {
+  [P in keyof T]?: T[P] extends (infer U)[]
+    ? RecursivePartial<U>[]
+    : T[P] extends object
+    ? RecursivePartial<T[P]>
+    : T[P];
+};
+
+export type CustomEcoTheme = RecursivePartial<Theme>;
