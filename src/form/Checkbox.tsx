@@ -51,7 +51,8 @@ const CheckboxContainer = styled.label({
   },
 });
 
-const Checkbox: React.FC<CheckboxProps> = ({
+export const Checkbox: React.FC<CheckboxProps> = ({
+
   checked,
   setChecked,
   backgroundColor,
