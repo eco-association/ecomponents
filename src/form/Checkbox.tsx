@@ -1,19 +1,20 @@
+import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Typography } from "../Typography";
 
 interface CheckboxProps {
+  label?: string;
   checked?: boolean;
-  setChecked?: React.Dispatch<React.SetStateAction<boolean>>;
   backgroundColor?: string;
   borderColor?: string;
   height?: number;
   width?: number;
+
+  onChange?(checked: boolean): void;
 }
 
-const greenText = css({
-  color: "#38654a",
-});
+const greenText = css({ color: "#38654a" });
 
 const Input = styled.input({
   clip: "rect(0 0 0 0)",
@@ -52,26 +53,15 @@ const CheckboxContainer = styled.label({
 });
 
 export const Checkbox: React.FC<CheckboxProps> = ({
-
+  label,
   checked,
-  setChecked,
-  backgroundColor,
-  borderColor,
-  height,
-  width,
+  onChange,
+  ...props
 }: CheckboxProps) => {
   return (
     <CheckboxContainer>
-      <Input type="checkbox" onChange={() => setChecked(!checked)} />
-      <Box
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        fill="none"
-        backgroundColor={backgroundColor}
-        borderColor={borderColor}
-        height={height}
-        width={width}
-      >
+      <Input type="checkbox" onChange={() => onChange && onChange(!checked)} />
+      <Box aria-hidden="true" viewBox="0 0 24 24" fill="none" {...props}>
         {checked && (
           <path
             d="M22.9 3.7l-15.2 16.6-6.6-7.1"
@@ -81,7 +71,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         )}
       </Box>
       <Typography variant="body3" css={greenText}>
-        AUTOMATICALLY SUBMIT
+        {label}
       </Typography>
     </CheckboxContainer>
   );
