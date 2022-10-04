@@ -44,19 +44,21 @@ export const Alert = React.forwardRef<
   const { button, color, children } = props;
   const text = (
     <Column gap="sm">
-      {!!title ? (
-        React.isValidElement(title) ? (
-          title
-        ) : (
-          <Typography
-            color={color === "transparent" ? undefined : color}
-            variant="h5"
-          >
-            {title}
-          </Typography>
-        )
-      ) : null}
-      {children}
+      <div>
+        {!!title ? (
+          React.isValidElement(title) ? (
+            title
+          ) : (
+            <Typography
+              color={color === "transparent" ? undefined : color}
+              variant="h5"
+            >
+              {title}
+            </Typography>
+          )
+        ) : null}
+      </div>
+      <div>{children}</div>
     </Column>
   );
 
