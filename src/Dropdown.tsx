@@ -1,43 +1,52 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "@emotion/styled";
-
 import { ArrowDown } from "./Arrows";
-import { cloneElement } from "./utils/jsxClone";
 
-interface DropdownProps {
-  children: JSX.Element;
+interface DropdownProps extends Omit<React.HTMLProps<HTMLDivElement>, "as"> {
+  children: React.ReactNode;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Container = styled.div({
-  position: "absolute",
-  right: 20,
-  top: "25%",
-  padding: "1rem",
-  overflow: "hidden",
-  textAlign: "right",
-  transition: "height 500ms ease",
-  "&:hover": {
-    cursor: "pointer",
-  },
-});
+const Container = styled.div({ cursor: "pointer" });
 
-export const Dropdown = React.forwardRef<
-  HTMLDivElement,
-  React.PropsWithChildren<DropdownProps>
->((props, ref) => {
-  const { children, open, setOpen } = props;
+const DropdownMenu = styled.div<{ top: number; right: number }>(
+  ({ top, right }) => ({
+    position: "absolute",
+    top,
+    right,
+  })
+);
+
+export const Dropdown: React.FC<React.PropsWithChildren<DropdownProps>> = ({
+  children,
+  open,
+  setOpen,
+  ...props
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const { innerWidth = 0 } = window || {};
+  const {
+    offsetTop = 0,
+    offsetLeft = 0,
+    offsetWidth = 0,
+    offsetHeight = 0,
+  } = ref.current || {};
+
   return (
     <Container as="ul" ref={ref} {...props}>
       <ArrowDown onClick={() => setOpen(!open)} />
-      {open &&
-        React.Children.map(children, (child) => {
-          if (!React.isValidElement(child)) return null;
-          return cloneElement(child, {});
-        })}
+      {open && (
+        <DropdownMenu
+          top={offsetTop + offsetHeight}
+          right={innerWidth - offsetLeft - offsetWidth}
+        >
+          {children}
+        </DropdownMenu>
+      )}
     </Container>
   );
-});
+};
 
 Dropdown.displayName = "Dropdown";
