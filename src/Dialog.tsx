@@ -7,6 +7,7 @@ import { XIcon } from "./assets/XIcon";
 interface Styles {
   content?: React.CSSProperties | undefined;
   overlay?: React.CSSProperties | undefined;
+  card?: React.CSSProperties | undefined;
 }
 
 interface Classes {
@@ -178,7 +179,7 @@ export const Dialog: React.FC<React.PropsWithChildren<DialogProps>> = ({
         },
       }}
     >
-      <StyledCard>
+      <StyledCard style={modalProps.style?.card}>
         <Icon onClick={modalProps.onRequestClose}>
           <XIcon />
         </Icon>
