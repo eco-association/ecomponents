@@ -42,26 +42,25 @@ export const Alert = React.forwardRef<
   React.PropsWithChildren<AlertProps>
 >(({ title, ...props }, ref) => {
   const { button, color, children } = props;
-  const text = (
-    <Column gap="sm">
-      <div>
-        {!!title ? (
-          React.isValidElement(title) ? (
-            title
-          ) : (
-            <Typography
-              color={color === "transparent" ? undefined : color}
-              variant="h5"
-            >
-              {title}
-            </Typography>
-          )
-        ) : null}
-      </div>
-      <div>{children}</div>
-    </Column>
+  const text = !!title ? (
+    React.isValidElement(title) ? (
+      title
+    ) : (
+      <Column gap="sm">
+        <div>
+          <Typography
+            color={color === "transparent" ? undefined : color}
+            variant="h5"
+          >
+            {title}
+          </Typography>
+        </div>
+        <div>{children}</div>
+      </Column>
+    )
+  ) : (
+    children
   );
-
   if (button) {
     return (
       <AlertStyled ref={ref} {...props}>
