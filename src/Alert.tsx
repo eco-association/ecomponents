@@ -20,12 +20,7 @@ const AlertStyled = styled("div")<AlertProps>(({ theme, color = "info" }) => ({
   lineHeight: "18px",
   borderStyle: "solid",
   letterSpacing: "-0.005em",
-  fontSize: theme.components.alert.fontSize,
   color: theme.palette.secondary.main,
-  "& span": {
-    fontSize: theme.components.alert.fontSize,
-    lineHeight: "18px",
-  },
   ...(color === "transparent"
     ? {
         borderColor: theme.components.alert.borderColor,
@@ -43,21 +38,21 @@ export const Alert = React.forwardRef<
 >(({ title, ...props }, ref) => {
   const { button, color, children } = props;
   const text = !!title ? (
-    React.isValidElement(title) ? (
-      title
-    ) : (
-      <Column gap="sm">
-        <div>
+    <Column gap="sm">
+      <div>
+        {React.isValidElement(title) ? (
+          title
+        ) : (
           <Typography
             color={color === "transparent" ? undefined : color}
             variant="h5"
           >
             {title}
           </Typography>
-        </div>
-        <div>{children}</div>
-      </Column>
-    )
+        )}
+      </div>
+      <div>{children}</div>
+    </Column>
   ) : (
     children
   );
