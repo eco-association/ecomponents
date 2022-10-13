@@ -83,10 +83,16 @@ interface AlertStyles {
   fontSize: CSSProperties["fontSize"];
 }
 
+interface DialogStyles {
+  content?: CSSProperties;
+  overlay?: CSSProperties;
+}
+
 export interface ComponentsStyles {
   card: CardOptions;
   button: ButtonStyles;
   alert: AlertStyles;
+  dialog?: DialogStyles;
 }
 
 export interface Palette extends Record<Color, PaletteColorOptions> {

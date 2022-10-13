@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { Card } from "./Card";
 import styled from "@emotion/styled";
 import { XIcon } from "./assets/XIcon";
+import { useTheme } from "./hooks";
 
 interface Styles {
   content?: React.CSSProperties | undefined;
@@ -160,11 +161,15 @@ export const Dialog: React.FC<React.PropsWithChildren<DialogProps>> = ({
   children,
   ...modalProps
 }) => {
+  const theme = useTheme();
   return (
     <Modal
       {...modalProps}
       style={{
-        ...modalProps.style,
+        overlay: {
+          ...theme.components.dialog?.overlay,
+          ...modalProps.style?.overlay,
+        },
         content: {
           border: 0,
           padding: 0,
@@ -175,6 +180,7 @@ export const Dialog: React.FC<React.PropsWithChildren<DialogProps>> = ({
           right: "initial",
           background: "transparent",
           transform: "translate(-50%,-50%)",
+          ...theme.components.dialog?.content,
           ...modalProps.style?.content,
         },
       }}
