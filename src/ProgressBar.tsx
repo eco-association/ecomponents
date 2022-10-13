@@ -6,14 +6,17 @@ import { Column } from "./Column";
 import { Typography } from "./Typography";
 import React from "react";
 
+type Position = "left" | "right";
+
 interface ProgressBarProps {
-  position?: "left" | "right";
   text?: string;
   textColor?: Color;
   textRight?: boolean;
   color: Color | Color[];
-  label: React.ReactNode | React.ReactNode[];
+  right: boolean | boolean[];
   percentage: number | number[];
+  position?: Position | Position[];
+  label: React.ReactNode | React.ReactNode[];
   BarContainerProps?: Omit<React.HTMLProps<HTMLDivElement>, "as">;
 }
 
@@ -103,6 +106,7 @@ export const ProgressBar = ({
     color,
     label: labels[index],
     percentage: Math.min(1, percentages[index]),
+    position: Array.isArray(position) ? position[index] : position,
   }));
 
   const barsSorted = [...bars].sort((a, b) =>
@@ -114,7 +118,7 @@ export const ProgressBar = ({
       <BarsContainer {...BarContainerProps}>
         <BarText text={text} color={textColor} right={textRight} />
         {barsSorted.map((bar, key) => (
-          <Bar key={key} position={position} {...bar} />
+          <Bar key={key} {...bar} />
         ))}
       </BarsContainer>
       <Labels gap="lg" justify={position === "right" ? "end" : undefined}>
