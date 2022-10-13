@@ -4,7 +4,7 @@ import { Color } from "./types";
 import { Row } from "./Row";
 import { Column } from "./Column";
 import { Typography } from "./Typography";
-import React from "react";
+import React, { CSSProperties } from "react";
 
 type Position = "left" | "right";
 
@@ -13,11 +13,12 @@ interface ProgressBarProps {
   textColor?: Color;
   textRight?: boolean;
   color: Color | Color[];
-  right: boolean | boolean[];
   percentage: number | number[];
   position?: Position | Position[];
   label: React.ReactNode | React.ReactNode[];
   BarContainerProps?: Omit<React.HTMLProps<HTMLDivElement>, "as">;
+  BarStyle?: CSSProperties | CSSProperties[];
+  LabelsStyle?: CSSProperties;
 }
 
 type BarProps = React.PropsWithChildren<{
@@ -90,6 +91,8 @@ export const ProgressBar = ({
   color: rawColors,
   percentage: rawPercentages,
   BarContainerProps,
+  BarStyle,
+  LabelsStyle,
 }: ProgressBarProps) => {
   const labels: React.ReactNode[] = Array.isArray(rawLabels)
     ? rawLabels
@@ -107,6 +110,7 @@ export const ProgressBar = ({
     label: labels[index],
     percentage: Math.min(1, percentages[index]),
     position: Array.isArray(position) ? position[index] : position,
+    style: Array.isArray(BarStyle) ? BarStyle[index] : BarStyle,
   }));
 
   const barsSorted = [...bars].sort((a, b) =>
@@ -121,7 +125,11 @@ export const ProgressBar = ({
           <Bar key={key} {...bar} />
         ))}
       </BarsContainer>
-      <Labels gap="lg" justify={position === "right" ? "end" : undefined}>
+      <Labels
+        gap="lg"
+        justify={position === "right" ? "end" : undefined}
+        style={LabelsStyle}
+      >
         {bars.map((bar, key) => {
           const children = [
             <SquareColor color={bar.color} />,
