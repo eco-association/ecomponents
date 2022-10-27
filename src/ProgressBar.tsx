@@ -27,10 +27,9 @@ type BarProps = React.PropsWithChildren<{
 }>;
 
 const BarsContainer = styled.div(({ theme }) => ({
-  height: 5,
-  width: "100%",
   position: "relative",
-  overflow: "hidden",
+  width: "100%",
+  height: 5,
   borderRadius: 25,
   backgroundColor: theme.palette.background.light,
 }));
@@ -61,6 +60,7 @@ const BarTextContainer = styled.div<{ right?: boolean }>(
     top: "50%",
     transform: "translate(0, -50%)",
     backgroundColor: theme.palette.background.default,
+    zIndex: 1,
     ...(right ? { right: 30 } : { left: 24 }),
   })
 );
