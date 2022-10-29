@@ -34,6 +34,7 @@ export type Color =
   | "secondary"
   | "error"
   | "info"
+  | "active"
   | "disabled"
   | "success";
 

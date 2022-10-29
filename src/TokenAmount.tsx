@@ -40,7 +40,7 @@ export const TokenAmount = React.forwardRef<HTMLSpanElement, TokenAmountProps>(
   ) => {
     const [int, dec] = formatTokenAmount(amount);
     return (
-      <Typography ref={ref} variant={intVariant} {...props}>
+      <Typography variant={intVariant} {...props} ref={ref}>
         {int}
         <Decimals
           inline

@@ -42,6 +42,12 @@ const rootTheme: Theme = {
       bg: "#DA1E280D",
       bgDark: "#DA1E2833",
     },
+    active: {
+      main: "#47b699",
+      contrastText: "#22313A",
+      bg: "#47b6990D",
+      bgDark: "#47b69933",
+    },
     disabled: {
       main: Gray.medlight,
       contrastText: Gray.medlight,

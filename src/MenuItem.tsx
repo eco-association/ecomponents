@@ -20,12 +20,12 @@ const MenuItemStyled = styled(Typography)<MenuItemProps>(
 );
 
 export const MenuItem = React.forwardRef<
-  HTMLLinkElement,
+  HTMLSpanElement,
   React.PropsWithChildren<MenuItemProps>
 >((props, ref) => {
   const { children } = props;
   return (
-    <MenuItemStyled as="a" ref={ref} {...props}>
+    <MenuItemStyled link ref={ref} {...props}>
       {children}
     </MenuItemStyled>
   );

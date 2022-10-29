@@ -8,8 +8,10 @@ type SpecialColor = "textPrimary" | "white" | "black";
 export interface TypographyProps
   extends Omit<
     React.HTMLProps<HTMLLinkElement | HTMLSpanElement | HTMLHeadingElement>,
-    "as"
+    "as" | "ref"
   > {
+  as?: React.ElementType<any>;
+  link?: boolean;
   inline?: boolean;
   variant?: Variant;
   color?: CustomizableComponent["color"] | SpecialColor;
@@ -21,8 +23,8 @@ const createCustomColors = (theme: Theme): Record<SpecialColor, string> => ({
   black: theme.palette.common.dark,
 });
 
-export const Typography = styled("span")<TypographyProps>(
-  ({ theme, color = "textPrimary", variant = "body1", inline }) => {
+const TypographyStyled = styled("span")<TypographyProps>(
+  ({ theme, color = "textPrimary", variant = "body1", link, inline }) => {
     const customColors = createCustomColors(theme);
     const specialColors = Object.keys(customColors);
     return {
@@ -31,9 +33,25 @@ export const Typography = styled("span")<TypographyProps>(
         ? { display: "block" }
         : {}),
       ...(inline ? { display: "inline-block" } : {}),
+      ...(link
+        ? {
+            cursor: "pointer",
+            "&:hover": {
+              textDecoration: "underline",
+            },
+          }
+        : {}),
       color: specialColors.includes(color)
         ? customColors[color as SpecialColor]
         : theme["palette"][(color as CustomizableComponent["color"])!]["main"],
     };
   }
 );
+
+export const Typography = React.forwardRef<
+  HTMLSpanElement,
+  React.PropsWithChildren<TypographyProps>
+>((props, ref) => {
+  const as = props.link ? "a" : undefined;
+  return <TypographyStyled as={as} ref={ref} {...props} />;
+});
