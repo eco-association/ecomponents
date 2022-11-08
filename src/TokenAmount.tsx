@@ -1,9 +1,10 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { Typography, TypographyProps } from "./Typography";
-import { formatNumber } from "./utils";
 import { BigNumber } from "@ethersproject/bignumber";
 import { formatEther } from "@ethersproject/units";
+import React from "react";
+
+import { Typography, TypographyProps } from "./Typography";
+import { formatNumber } from "./utils";
 
 interface DecimalOptions {
   lightWeight?: boolean;
@@ -44,15 +45,17 @@ export const TokenAmount = React.forwardRef<HTMLSpanElement, TokenAmountProps>(
     return (
       <Typography variant={intVariant} {...props} ref={ref}>
         {int}
-        <Decimals
-          inline
-          variant={decVariant}
-          options={decimalOptions}
-          {...props}
-          color={decColor || props.color}
-        >
-          .{dec}
-        </Decimals>
+        {dec ? (
+          <Decimals
+            inline
+            variant={decVariant}
+            options={decimalOptions}
+            {...props}
+            color={decColor || props.color}
+          >
+            .{dec}
+          </Decimals>
+        ) : null}
       </Typography>
     );
   }
