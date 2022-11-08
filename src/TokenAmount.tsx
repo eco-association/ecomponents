@@ -14,6 +14,7 @@ interface TokenAmountProps extends Omit<TypographyProps, "variant"> {
   decimalOptions?: DecimalOptions;
   intVariant?: TypographyProps["variant"];
   decVariant?: TypographyProps["variant"];
+  decColor?: TypographyProps["color"];
 }
 
 function formatTokenAmount(amount: TokenAmountProps["amount"]) {
@@ -34,6 +35,7 @@ export const TokenAmount = React.forwardRef<HTMLSpanElement, TokenAmountProps>(
       decimalOptions = {},
       intVariant = "h2",
       decVariant = "h3",
+      decColor,
       ...props
     }: TokenAmountProps,
     ref
@@ -47,6 +49,7 @@ export const TokenAmount = React.forwardRef<HTMLSpanElement, TokenAmountProps>(
           variant={decVariant}
           options={decimalOptions}
           {...props}
+          color={decColor || props.color}
         >
           .{dec}
         </Decimals>

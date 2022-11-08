@@ -1,5 +1,5 @@
 const formatterDecimals = new Intl.NumberFormat("en-US", {
-  minimumFractionDigits: 3,
+  minimumFractionDigits: 1,
 });
 const formatterInt = new Intl.NumberFormat("en-US", {
   minimumFractionDigits: 0,

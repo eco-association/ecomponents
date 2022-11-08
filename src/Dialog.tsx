@@ -39,6 +39,8 @@ interface OnAfterOpenCallback {
 }
 
 export interface DialogProps {
+  shouldShowCloseButton?: boolean;
+
   children?: React.ReactNode;
 
   /* Boolean describing if the modal should be shown or not. Defaults to false. */
@@ -158,6 +160,7 @@ const Icon = styled.div({
 });
 
 export const Dialog: React.FC<React.PropsWithChildren<DialogProps>> = ({
+  shouldShowCloseButton = true,
   children,
   ...modalProps
 }) => {
@@ -186,9 +189,11 @@ export const Dialog: React.FC<React.PropsWithChildren<DialogProps>> = ({
       }}
     >
       <StyledCard style={modalProps.style?.card}>
-        <Icon onClick={modalProps.onRequestClose}>
-          <XIcon />
-        </Icon>
+        {shouldShowCloseButton ? (
+          <Icon onClick={modalProps.onRequestClose}>
+            <XIcon />
+          </Icon>
+        ) : null}
         {children}
       </StyledCard>
     </Modal>
