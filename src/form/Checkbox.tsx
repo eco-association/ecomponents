@@ -10,6 +10,7 @@ interface CheckboxProps
   > {
   checked?: boolean;
   color?: Color | string;
+  checkColor?: Color | string;
   backgroundColor?: string;
   height?: number;
   width?: number;
@@ -51,15 +52,18 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   width = 16,
   height = 16,
   color: rawColor = "#38654a",
-  backgroundColor: rawBackgroundColor = "rgba(90, 228, 191, 0.2)",
+  checkColor: rawCheckColor,
+  backgroundColor: rawBackgroundColor,
   ...props
 }: CheckboxProps) => {
   const theme = useTheme();
   const themeColor = theme.palette[rawColor as Color]?.main;
   const color = themeColor || rawColor;
+  const checkColor = rawCheckColor || color;
   const backgroundColor =
-    (themeColor && theme.palette[rawColor as Color]?.bgDark) ||
-    rawBackgroundColor;
+    rawBackgroundColor ||
+    (themeColor && theme.palette[rawColor as Color]?.bg) ||
+    "white";
   return (
     <CheckboxContainer>
       <Input
@@ -77,11 +81,24 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         backgroundColor={backgroundColor}
       >
         {checked && (
-          <path
-            d="M22.9 3.7l-15.2 16.6-6.6-7.1"
-            strokeWidth="2"
-            stroke={color}
-          />
+          <>
+            <line
+              x1="8.79289"
+              y1="17.2929"
+              x2="18.7929"
+              y2="6.29289"
+              stroke={checkColor}
+              strokeWidth="2"
+            />
+            <line
+              x1="6.20711"
+              y1="12.29289"
+              x2="10.20711"
+              y2="17.2929"
+              stroke={checkColor}
+              strokeWidth="2"
+            />
+          </>
         )}
       </Box>
     </CheckboxContainer>
