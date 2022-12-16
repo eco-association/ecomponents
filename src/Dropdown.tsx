@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import styled from "@emotion/styled";
-import { ArrowDown } from "./Arrows";
+import { ArrowDown, ArrowUp } from "./Arrows";
 
 interface DropdownProps extends Omit<React.HTMLProps<HTMLDivElement>, "as"> {
   children: React.ReactNode;
@@ -36,7 +36,11 @@ export const Dropdown: React.FC<React.PropsWithChildren<DropdownProps>> = ({
 
   return (
     <Container as="ul" ref={ref} {...props}>
-      <ArrowDown onClick={() => setOpen(!open)} />
+      {open ? (
+        <ArrowUp onClick={() => setOpen(!open)} />
+      ) : (
+        <ArrowDown onClick={() => setOpen(!open)} />
+      )}
       {open && (
         <DropdownMenu
           top={offsetTop + offsetHeight}
