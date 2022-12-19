@@ -31,6 +31,7 @@ const BarsContainer = styled.div(({ theme }) => ({
   width: "100%",
   height: 5,
   borderRadius: 25,
+  overflow: "visible",
   backgroundColor: theme.palette.background.light,
 }));
 
@@ -39,6 +40,7 @@ const Bar = styled.div<BarProps & Pick<ProgressBarProps, "position">>(
     position: "absolute",
     height: "100%",
     width: `${percentage * 100}%`,
+    borderRadius: 25,
     backgroundColor: theme.palette[color].main,
     ...(position === "right" ? { right: 0 } : { left: 0 }),
   })

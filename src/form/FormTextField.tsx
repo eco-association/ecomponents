@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Controller, ValidationRule } from "react-hook-form";
 import { Column } from "../Column";
 import { Input, InputProps } from "../Input";
@@ -107,6 +107,13 @@ export const FormTextField = (originalProps: FormTextInputProps) => {
   const { rules, control, name, label, note, noteColor, ...props } =
     configureProps(originalProps);
 
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [note, inputRef]);
+
   return (
     <Controller
       control={control}
@@ -114,7 +121,12 @@ export const FormTextField = (originalProps: FormTextInputProps) => {
       rules={rules}
       render={({ field: fieldProps, fieldState: { error } }) => {
         const input = (
-          <Input {...props} {...fieldProps} error={!!error || props.error} />
+          <Input 
+            {...props}
+            {...fieldProps}
+            ref={inputRef}
+            error={!!error || props.error}
+          />
         );
 
         const content = note ? (
