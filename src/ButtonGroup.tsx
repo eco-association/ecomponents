@@ -16,11 +16,13 @@ const groupedButton = css({
   },
 });
 
+const onlyButton = css({ borderRadius: 4 });
 const leftButton = css({ borderRadius: "4px 0 0 4px" });
 const centerButton = css({ borderLeft: 0, borderRadius: "0 0 0 0" });
 const rightButton = css({ borderLeft: 0, borderRadius: "0 4px 4px 0" });
 
 function getButtonClass(index: number, count: number) {
+  if (count === 1) return onlyButton;
   if (index + 1 === count) return rightButton;
   if (index === 0) return leftButton;
   return centerButton;
