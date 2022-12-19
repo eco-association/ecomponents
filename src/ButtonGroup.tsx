@@ -31,7 +31,6 @@ export const ButtonGroup: React.FC<React.PropsWithChildren<any>> = ({
 }) => {
   const theme = useTheme();
   const count = React.Children.count(children);
-  if (count < 2) return <React.Fragment>{children}</React.Fragment>;
   return (
     <Container>
       {React.Children.map(children, (child, index) => {
