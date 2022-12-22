@@ -32,7 +32,7 @@ export const ButtonGroup: React.FC<React.PropsWithChildren<any>> = ({
   children,
 }) => {
   const theme = useTheme();
-  const count = React.Children.count(children);
+  const count = React.Children.toArray(children).length;
   return (
     <Container>
       {React.Children.map(children, (child, index) => {
