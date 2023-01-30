@@ -25,9 +25,6 @@
   "bugs": {
     "url": "https://github.com/eco-association/ecomponents/issues"
   },
-  "publishConfig": {
-    "registry": "https://www.npmjs.com/org/ecoinc"
-  },
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test",
