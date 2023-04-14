@@ -34,7 +34,7 @@ interface BarProps extends React.PropsWithChildren<any> {
   props?: Omit<React.HTMLProps<HTMLDivElement>, "as" | "label">;
 }
 
-const Container = styled(Row)({ width: "100%" });
+const Container = styled(Row)({ width: "fit-content" });
 
 const BarContainer = styled(Container)({
   position: "absolute",
@@ -141,10 +141,14 @@ export const ProgressBar = ({
   LabelsStyle,
   bars: _bars,
 }: ProgressBarProps) => {
-  const bars = _bars.map((props) => ({
-    ...props,
-    percentage: Math.min(1, props.percentage),
-  }));
+  const bars = _bars.map(
+    (props): BarProps => ({
+      ...props,
+      type: props.type || "solid",
+      position: props.position || "left",
+      percentage: Math.min(1, props.percentage),
+    })
+  );
   return (
     <Column gap={12}>
       <BarsContainer justify="space-between" {...BarContainerProps}>
