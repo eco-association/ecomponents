@@ -1,9 +1,10 @@
-import React from "react";
 import styled from "@emotion/styled";
+import React from "react";
+
+import { Column } from "./Column";
+import { Grid } from "./Grid";
 import { CustomizableComponent } from "./types/components";
 import { Typography } from "./Typography";
-import { Grid } from "./Grid";
-import { Column } from "./Column";
 
 interface AlertProps
   extends Omit<React.HTMLProps<HTMLDivElement>, "color" | "title" | "as"> {
@@ -27,10 +28,19 @@ const AlertStyled = styled("div")<AlertProps>(({ theme, color = "info" }) => ({
       }
     : {
         backgroundColor: theme.palette[color].bg,
-        borderColor:
-          color === "disabled" ? undefined : theme.palette[color].main,
+        borderColor: color === "disabled" ? undefined : theme.palette[color].main,
       }),
 }));
+
+const SGrid = styled.div`
+  display: grid;
+  grid-gap: 16px;
+
+  @media screen and (min-width: 576px) {
+    align-items: center;
+    grid-template-columns: auto auto;
+  }
+`;
 
 export const Alert = React.forwardRef<
   HTMLDivElement,
@@ -38,15 +48,12 @@ export const Alert = React.forwardRef<
 >(({ title, ...props }, ref) => {
   const { button, color, children } = props;
   const text = !!title ? (
-    <Column gap="sm">
+    <Column gap='sm'>
       <div>
         {React.isValidElement(title) ? (
           title
         ) : (
-          <Typography
-            color={color === "transparent" ? undefined : color}
-            variant="h5"
-          >
+          <Typography color={color === "transparent" ? undefined : color} variant='h5'>
             {title}
           </Typography>
         )}
@@ -59,10 +66,10 @@ export const Alert = React.forwardRef<
   if (button) {
     return (
       <AlertStyled ref={ref} {...props}>
-        <Grid columns="auto auto" gridGap="16px" alignItems="center">
+        <SGrid>
           <Grid.Item>{text}</Grid.Item>
           <Grid.Item>{button}</Grid.Item>
-        </Grid>
+        </SGrid>
       </AlertStyled>
     );
   }
