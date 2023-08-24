@@ -35,7 +35,7 @@ export const Dropdown = forwardRef<
       offsetWidth = 0,
       offsetHeight = 0,
     } = (ref as React.RefObject<HTMLDivElement>)?.current || {};
-    console.log("SHOE", { showCaret, open });
+
     return (
       <Container as='ul' ref={ref} {...props}>
         {showCaret &&
