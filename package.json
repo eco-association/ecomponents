@@ -4,7 +4,7 @@
   "version": "1.0.1",
   "license": "ISC",
   "author": "carlosfebres",
-  "homepage": "https://github.com/eco/ecomponents#readme",
+  "homepage": "https://github.com/eco-association/ecomponents#readme",
   "files": [
     "dist"
   ],
@@ -20,13 +20,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eco/ecomponents.git"
+    "url": "git+https://github.com/eco-association/ecomponents.git"
   },
   "bugs": {
-    "url": "https://github.com/eco/ecomponents/issues"
-  },
-  "publishConfig": {
-    "registry": "https://www.npmjs.com/org/ecoinc"
+    "url": "https://github.com/eco-association/ecomponents/issues"
   },
   "scripts": {
     "start": "react-scripts start",
