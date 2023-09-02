@@ -1,105 +1,97 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 import React, { CSSProperties } from "react";
-
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 import { Column } from "./Column";
-import { Row } from "./Row";
-import { Color } from "./types";
+import { Row, RowProps } from "./Row";
 import { Typography } from "./Typography";
+import { Color } from "./types";
 
-type Position = "left" | "right";
+const DottedLineSvg = (
+  color: string
+) => `<svg width="4" height="5" viewBox="0 0 4 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="4" height="5" x="2" fill="${color}" />
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M 0 0 L 0 5 H 2 L 2 0" fill="transparent"/>
+</svg>`;
 
 interface ProgressBarProps {
-  fullWidth?: boolean;
   text?: string;
   textColor?: Color;
   textRight?: boolean;
-  color: Color | Color[];
-  percentage: number | number[];
-  position?: Position | Position[];
-  label: React.ReactNode | React.ReactNode[];
-  BarContainerProps?: Omit<React.HTMLProps<HTMLDivElement>, "as">;
+  BarContainerProps?: RowProps;
   BarStyle?: CSSProperties | CSSProperties[];
   LabelsStyle?: CSSProperties;
+
+  bars: BarProps[];
 }
 
-type BarProps = React.PropsWithChildren<{
+interface BarProps extends React.PropsWithChildren<any> {
   color: Color;
   percentage: number;
-}>;
+  label?: React.ReactNode;
+  type?: "solid" | "dotted";
+  position?: "left" | "right";
+  style?: CSSProperties;
+  props?: Omit<React.HTMLProps<HTMLDivElement>, "as" | "label">;
+}
 
-const StyledRow = styled(Column)({
-  [`@media screen and (min-width: 576px)`]: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+const Container = styled(Row)({ width: "fit-content" });
 
-    "div:nth-child(2) div:nth-child(2)": {
-      display: "flex",
-      justifyContent: "flex-end",
-    },
-  },
+const BarContainer = styled(Container)({
+  position: "absolute",
+  width: "100%",
+  height: "100%",
 });
 
-const BarContainer = styled.div<{ fullWidth?: boolean }>(({ fullWidth }) => ({
-  width: "100%",
-
-  "&:first-of-type": {
-    marginBottom: "24px",
-  },
-
-  [`@media screen and (min-width: 576px)`]: {
-    width: fullWidth ? "100%" : "50%",
-    "&:first-of-type": {
-      marginBottom: 0,
-    },
-  },
-}));
-
-const BarsContainer = styled.div<Pick<ProgressBarProps, "position">>(({ position }) => ({
-  position: "relative",
-  width: "100%",
+const BarsContainer = styled(Row)(({ theme }) => ({
   height: 5,
-  borderRadius: 25,
+  borderRadius: 24,
+  width: "100%",
   overflow: "visible",
-  marginBottom: 8,
-  background: "linear-gradient(0deg, #EFF8FE 0%, #DEE6EB 100%)",
-
-  [`@media screen and (min-width: 576px)`]: {
-    ...(position === "right"
-      ? { borderRadius: "0 25px 25px 0" }
-      : { borderRadius: "25px 0 0 25px" }),
-  },
+  position: "relative",
+  backgroundColor: theme.palette.background.light,
 }));
 
-const Bar = styled.div<BarProps & Pick<ProgressBarProps, "position">>(
-  ({ theme, position, percentage, color }) => ({
-    position: "absolute",
-    height: "100%",
-    width: `${percentage * 100}%`,
-    borderRadius: 25,
-    backgroundColor: theme.palette[color].main,
+const Bar = styled.div<BarProps>(({ theme, position, percentage, color, type }) => ({
+  height: "100%",
+  width: `${percentage * 100}%`,
+  transition: "width ease 1s",
+  ...(type === "dotted"
+    ? {
+        backgroundImage: `url('data:image/svg+xml;base64,${Buffer.from(
+          DottedLineSvg(theme.palette[color].main)
+        ).toString("base64")}')`,
+      }
+    : { backgroundColor: theme.palette[color].main }),
+  ...(position === "left"
+    ? {
+        "&:first-child": {
+          borderTopLeftRadius: 24,
+          borderBottomLeftRadius: 24,
+        },
+      }
+    : {
+        "&:last-child": {
+          borderTopRightRadius: 24,
+          borderBottomRightRadius: 24,
+        },
+      }),
+}));
 
-    [`@media screen and (min-width: 576px)`]: {
-      ...(position === "right" ? { right: 0 } : { left: 0 }),
-    },
-  })
-);
-
-const SquareColor = styled.div<Pick<BarProps, "color">>(({ theme, color }) => ({
-  backgroundColor: theme.palette[color].main,
-  borderRadius: 2,
+const SquareColor = styled.div<BarProps>(({ theme, color }) => ({
   width: 16,
   minWidth: 16,
   height: 16,
+  borderRadius: 2,
+  backgroundColor: theme.palette[color].main,
 }));
 
 const BarTextContainer = styled.div<{ right?: boolean }>(({ theme, right }) => ({
+  zIndex: 1,
   padding: 2,
-  position: "absolute",
   top: "50%",
+  position: "absolute",
   transform: "translate(0, -50%)",
   backgroundColor: theme.palette.background.default,
-  zIndex: 1,
   ...(right ? { right: 30 } : { left: 24 }),
 }));
 
@@ -108,6 +100,24 @@ interface BarTextProps {
   color: ProgressBarProps["textColor"];
   right: ProgressBarProps["textRight"];
 }
+
+const getByPosition = (bars: BarProps[], position: BarProps["position"]) =>
+  bars.filter((bar) => bar.position === position);
+
+const getLabel = (bar: BarProps, index: number) => {
+  if (!bar.label) return null;
+  const children = [<SquareColor key={index} {...bar} />, bar.label];
+  if (bar.position === "right") children.reverse();
+  return (
+    <Row key={index} gap='sm' items='center'>
+      {children}
+    </Row>
+  );
+};
+
+const getBar = (bar: BarProps, index: number) => {
+  return <Bar key={index} {...bar} />;
+};
 
 const BarText = ({ text, color, right }: BarTextProps) => {
   if (!text) return null;
@@ -121,61 +131,36 @@ const BarText = ({ text, color, right }: BarTextProps) => {
 };
 
 export const ProgressBar = ({
-  fullWidth,
-  text: rawTexts,
+  text,
   textColor,
   textRight,
-  position,
-  label: rawLabels,
-  color: rawColors,
-  percentage: rawPercentages,
   BarContainerProps,
-  BarStyle,
+  LabelsStyle,
+  bars: _bars,
 }: ProgressBarProps) => {
-  const labels: React.ReactNode[] = Array.isArray(rawLabels) ? rawLabels : [rawLabels];
-  const texts = Array.isArray(rawTexts) ? rawTexts : [rawTexts];
-  const colors = Array.isArray(rawColors) ? rawColors : [rawColors];
-  const percentages = Array.isArray(rawPercentages) ? rawPercentages : [rawPercentages];
-
-  if (colors.length !== percentages.length) throw new Error("Mismatched number of bars");
-
-  const bars = colors.map((color, index) => ({
-    color,
-    text: texts[index],
-    label: labels[index],
-    percentage: Math.min(1, percentages[index]),
-    position: Array.isArray(position) ? position[index] : position,
-    style: Array.isArray(BarStyle) ? BarStyle[index] : BarStyle,
-  }));
-
+  const bars = _bars.map(
+    (props): BarProps => ({
+      ...props,
+      type: props.type || "solid",
+      position: props.position || "left",
+      percentage: Math.min(1, props.percentage),
+    })
+  );
   return (
-    <StyledRow>
-      {bars.map((bar, key) => {
-        const children = [
-          <SquareColor color={bar.color} />,
-          <Typography variant='body3' color='secondary'>
-            {bar.label}
-          </Typography>,
-        ];
-
-        if (position === "right") children.reverse();
-
-        return (
-          <BarContainer fullWidth={fullWidth} key={key}>
-            <BarsContainer position={bar.position} {...BarContainerProps}>
-              <BarText text={bar.text} color={textColor} right={textRight} />
-
-              <Bar key={key} {...bar} />
-            </BarsContainer>
-
-            <div>
-              <Row key={key} gap='sm' items='center'>
-                {children}
-              </Row>
-            </div>
-          </BarContainer>
-        );
-      })}
-    </StyledRow>
+    <Column gap={12}>
+      <BarsContainer justify='space-between' {...BarContainerProps}>
+        <BarText text={text} color={textColor} right={textRight} />
+        <BarContainer>{getByPosition(bars, "left").map(getBar)}</BarContainer>
+        <BarContainer justify='end'>
+          {getByPosition(bars, "right").map(getBar)}
+        </BarContainer>
+      </BarsContainer>
+      <Row justify='space-between' gap='lg' style={LabelsStyle}>
+        <Container gap='lg'>{getByPosition(bars, "left").map(getLabel)}</Container>
+        <Container gap='lg' justify='end'>
+          {getByPosition(bars, "right").map(getLabel)}
+        </Container>
+      </Row>
+    </Column>
   );
 };
