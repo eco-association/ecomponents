@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, TypographyOptions } from "../../types/theme";
+import { pxToRem } from "../../utils";
 
 function round(value: number) {
   return Math.round(value * 1e5) / 1e5;
@@ -17,8 +18,6 @@ export function createTypography(typography?: TypographyOptions): Typography {
     fontWeightBold = 700,
   } = typography || {};
 
-  const pxToRem = (size: number) =>
-    `${size / parseInt(fontSize.toString())}rem`;
   const buildVariant = (
     fontWeight: React.CSSProperties["fontWeight"],
     size: number,
@@ -26,7 +25,7 @@ export function createTypography(typography?: TypographyOptions): Typography {
   ) => ({
     fontFamily,
     fontWeight,
-    fontSize: pxToRem(size),
+    fontSize: pxToRem(size, fontSize as number),
     lineHeight,
   });
 

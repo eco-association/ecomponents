@@ -51,52 +51,49 @@ const BarsContainer = styled(Row)(({ theme }) => ({
   backgroundColor: theme.palette.background.light,
 }));
 
-const Bar = styled.div<BarProps>(
-  ({ theme, position, percentage, color, type }) => ({
-    height: "100%",
-    width: `${percentage * 100}%`,
-    transition: "width ease 1s",
-    ...(type === "dotted"
-      ? {
-          backgroundImage: `url('data:image/svg+xml;base64,${Buffer.from(
-            DottedLineSvg(theme.palette[color].main)
-          ).toString("base64")}')`,
-        }
-      : { backgroundColor: theme.palette[color].main }),
-    ...(position === "left"
-      ? {
-          "&:first-child": {
-            borderTopLeftRadius: 24,
-            borderBottomLeftRadius: 24,
-          },
-        }
-      : {
-          "&:last-child": {
-            borderTopRightRadius: 24,
-            borderBottomRightRadius: 24,
-          },
-        }),
-  })
-);
+const Bar = styled.div<BarProps>(({ theme, position, percentage, color, type }) => ({
+  height: "100%",
+  width: `${percentage * 100}%`,
+  transition: "width ease 1s",
+  ...(type === "dotted"
+    ? {
+        backgroundImage: `url('data:image/svg+xml;base64,${Buffer.from(
+          DottedLineSvg(theme.palette[color].main)
+        ).toString("base64")}')`,
+      }
+    : { backgroundColor: theme.palette[color].main }),
+  ...(position === "left"
+    ? {
+        "&:first-child": {
+          borderTopLeftRadius: 24,
+          borderBottomLeftRadius: 24,
+        },
+      }
+    : {
+        "&:last-child": {
+          borderTopRightRadius: 24,
+          borderBottomRightRadius: 24,
+        },
+      }),
+}));
 
 const SquareColor = styled.div<BarProps>(({ theme, color }) => ({
   width: 16,
+  minWidth: 16,
   height: 16,
   borderRadius: 2,
   backgroundColor: theme.palette[color].main,
 }));
 
-const BarTextContainer = styled.div<{ right?: boolean }>(
-  ({ theme, right }) => ({
-    zIndex: 1,
-    padding: 2,
-    top: "50%",
-    position: "absolute",
-    transform: "translate(0, -50%)",
-    backgroundColor: theme.palette.background.default,
-    ...(right ? { right: 30 } : { left: 24 }),
-  })
-);
+const BarTextContainer = styled.div<{ right?: boolean }>(({ theme, right }) => ({
+  zIndex: 1,
+  padding: 2,
+  top: "50%",
+  position: "absolute",
+  transform: "translate(0, -50%)",
+  backgroundColor: theme.palette.background.default,
+  ...(right ? { right: 30 } : { left: 24 }),
+}));
 
 interface BarTextProps {
   text: ProgressBarProps["text"];
@@ -112,7 +109,7 @@ const getLabel = (bar: BarProps, index: number) => {
   const children = [<SquareColor key={index} {...bar} />, bar.label];
   if (bar.position === "right") children.reverse();
   return (
-    <Row key={index} gap="sm" items="center">
+    <Row key={index} gap='sm' items='center'>
       {children}
     </Row>
   );
@@ -126,7 +123,7 @@ const BarText = ({ text, color, right }: BarTextProps) => {
   if (!text) return null;
   return (
     <BarTextContainer right={right}>
-      <Typography color={color} variant="body3" css={css({ lineHeight: 2 })}>
+      <Typography color={color} variant='body3' css={css({ lineHeight: 2 })}>
         {text}
       </Typography>
     </BarTextContainer>
@@ -151,18 +148,16 @@ export const ProgressBar = ({
   );
   return (
     <Column gap={12}>
-      <BarsContainer justify="space-between" {...BarContainerProps}>
+      <BarsContainer justify='space-between' {...BarContainerProps}>
         <BarText text={text} color={textColor} right={textRight} />
         <BarContainer>{getByPosition(bars, "left").map(getBar)}</BarContainer>
-        <BarContainer justify="end">
+        <BarContainer justify='end'>
           {getByPosition(bars, "right").map(getBar)}
         </BarContainer>
       </BarsContainer>
-      <Row justify="space-between" gap="lg" style={LabelsStyle}>
-        <Container gap="lg">
-          {getByPosition(bars, "left").map(getLabel)}
-        </Container>
-        <Container gap="lg" justify="end">
+      <Row justify='space-between' gap='lg' style={LabelsStyle}>
+        <Container gap='lg'>{getByPosition(bars, "left").map(getLabel)}</Container>
+        <Container gap='lg' justify='end'>
           {getByPosition(bars, "right").map(getLabel)}
         </Container>
       </Row>

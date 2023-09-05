@@ -1,1 +1,1 @@
-export type { Theme, Color, CustomEcoTheme } from "./theme";
+export type { Theme, Color, CustomEcoTheme, Variant } from "./theme";
